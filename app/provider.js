@@ -3,10 +3,20 @@ import React, { useContext, useEffect, useState } from "react";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { UserDetailContext } from "@/context/UserDetailContext";
-
+import ScreenSizeContext from '../context/ScreenSizeContext'
+import {DragDropLayoutElement} from "@/context/DragDropLayoutElement";
+import {EmailTemplateContext} from "@/context/EmailTemplateContext";
 function Provider({ children }) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
     const [userDetail, setUserDetail] = useState({});
+    const [ScreenSize, setScreenSize] = useState('desktop');
+    const [DragElementLayout, setDragElementLayout] = useState({});
+    const [emailTemplate, setEmailTemplate] = useState({});
+
+    useEffect(() => {
+        console.log("Current ScreenSize:", ScreenSize);
+    }, [ScreenSize]);
+
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -21,7 +31,15 @@ function Provider({ children }) {
         <ConvexProvider client={convex}>
             <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
                 <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
-                    {children}
+                    <ScreenSizeContext.Provider value={{ ScreenSize, setScreenSize }}>
+                        <DragDropLayoutElement.Provider value={{DragElementLayout, setDragElementLayout}}>
+                            <EmailTemplateContext.Provider  value={{emailTemplate, setEmailTemplate}}>
+                                <div>
+                                    {children}
+                                </div>
+                            </EmailTemplateContext.Provider>
+                        </DragDropLayoutElement.Provider>
+                    </ScreenSizeContext.Provider>
                 </UserDetailContext.Provider>
             </GoogleOAuthProvider>
         </ConvexProvider>
@@ -33,3 +51,12 @@ export default Provider;
 export const useUserDetail = () => {
     return useContext(UserDetailContext);
 };
+export const useScreenSize = () => {
+    return useContext(ScreenSizeContext);
+}
+export const useDragDropLayout = () => {
+    return useContext(DragDropLayoutElement);
+}
+export const useEmailTemplate = () => {
+    return useContext(EmailTemplateContext);
+}
