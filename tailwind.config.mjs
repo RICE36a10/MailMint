@@ -54,7 +54,19 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		animation: {
+			"moving-border": "borderMove 2s linear infinite",
+		},
+		keyframes: {
+			borderMove: {
+				"0%": { borderColor: "transparent red transparent transparent" },
+				"25%": { borderColor: "transparent transparent red transparent" },
+				"50%": { borderColor: "transparent transparent transparent red" },
+				"75%": { borderColor: "red transparent transparent transparent" },
+				"100%": { borderColor: "transparent red transparent transparent" },
+			},
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

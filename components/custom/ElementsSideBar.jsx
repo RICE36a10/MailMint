@@ -22,7 +22,14 @@ export function ElementsSideBar() {
         }));
     };
 
-
+    const onDragelementStart = (element) => {
+        setDragElementLayout({
+            dragElement: {
+                ...element,
+                id: Date.now()
+            }
+        });
+    }
 
     return (
         <div className={'p-5 h-screen shadow-sm'}>
@@ -44,7 +51,10 @@ export function ElementsSideBar() {
                 ''}>
                 {ElementList.map((element, index) => (
                     <div key={index} draggable={true} >
-                        <ElementLayoutCard key={index} index={index} layout={element}/>
+                        <div key={index} draggable={true} onDragStart={() => onDragelementStart(element)}>
+                            <ElementLayoutCard key={index} index={index} layout={element}/>
+                        </div>
+
                     </div>
                 ))}
             </div>

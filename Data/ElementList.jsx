@@ -46,6 +46,7 @@ export default [
         type: 'Text',
         label: 'Text',
         textarea: 'Sample Text',
+        content: 'sample Text',
         style: {
             backgroundColor: '#fff',
             color: '#000000',
