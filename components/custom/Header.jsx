@@ -7,7 +7,6 @@ import { SignInButton } from "@/components/custom/SignInButton";
 import { useUserDetail } from "@/app/provider";
 import Link from "next/link";
 
-
 export const Header = () => {
     const { userDetail } = useUserDetail();
 
@@ -19,8 +18,8 @@ export const Header = () => {
             <div>
                 {userDetail?.email ? (
                     <div className="flex gap-3 items-center">
-                        <Link href={'/dashboard'}>
-                            <Button  >Dashboard</Button>
+                        <Link href={"/dashboard"}>
+                            <Button>Dashboard</Button>
                         </Link>
                         <Image
                             src={userDetail?.picture}

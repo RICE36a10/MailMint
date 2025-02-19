@@ -17,7 +17,7 @@ export function SignInButton() {
                     "https://www.googleapis.com/oauth2/v3/userinfo",
                     {
                         headers: { Authorization: `Bearer ${tokenResponse?.access_token}` },
-                    }
+                    },
                 );
                 console.log(userDetail.data);
                 const user = userDetail.data;
@@ -41,7 +41,6 @@ export function SignInButton() {
                 if (typeof window !== "undefined") {
                     localStorage.setItem("userDetail", JSON.stringify(userDetails));
                 }
-
             } catch (error) {
                 console.error("Error fetching user info:", error);
             }

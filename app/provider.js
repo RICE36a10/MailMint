@@ -3,18 +3,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { UserDetailContext } from "@/context/UserDetailContext";
-import ScreenSizeContext from '../context/ScreenSizeContext'
-import {DragDropLayoutContext} from "@/context/DragDropLayoutElement";
-import {EmailTemplateContext} from "@/context/EmailTemplateContext";
-import {SelectedElementContext} from "@/context/SelectedElement";
+import ScreenSizeContext from "../context/ScreenSizeContext";
+import { DragDropLayoutContext } from "@/context/DragDropLayoutElement";
+import { EmailTemplateContext } from "@/context/EmailTemplateContext";
+import { SelectedElementContext } from "@/context/SelectedElement";
 function Provider({ children }) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
     const [userDetail, setUserDetail] = useState({});
-    const [ScreenSize, setScreenSize] = useState('desktop');
+    const [ScreenSize, setScreenSize] = useState("desktop");
     const [DragElementLayout, setDragElementLayout] = useState({});
     const [SelectedElement, setSelectedElement] = useState();
-
-
 
     const [emailTemplate, setEmailTemplate] = useState(() => {
         if (typeof window !== "undefined") {
@@ -27,7 +25,6 @@ function Provider({ children }) {
         }
         return [];
     });
-
 
     useEffect(() => {
         console.log("Current ScreenSize:", ScreenSize);
@@ -49,33 +46,34 @@ function Provider({ children }) {
     }, []);
 
     useEffect(() => {
-        if(SelectedElement){
+        if (SelectedElement) {
             let updatedEmailTemplate = [];
-            emailTemplate.forEach((item,index) => {
-                if(item.id === SelectedElement?.layout?.id){
-                    updatedEmailTemplate?.push(SelectedElement?.layout)
+            emailTemplate.forEach((item, index) => {
+                if (item.id === SelectedElement?.layout?.id) {
+                    updatedEmailTemplate?.push(SelectedElement?.layout);
                 } else {
                     updatedEmailTemplate?.push(item);
                 }
-            })
+            });
             setEmailTemplate(updatedEmailTemplate);
         }
-    },[SelectedElement])
-
-
-
+    }, [SelectedElement]);
 
     return (
         <ConvexProvider client={convex}>
             <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
                 <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
                     <ScreenSizeContext.Provider value={{ ScreenSize, setScreenSize }}>
-                        <DragDropLayoutContext.Provider value={{DragElementLayout, setDragElementLayout}}>
-                            <EmailTemplateContext.Provider  value={{emailTemplate, setEmailTemplate}}>
-                                <SelectedElementContext.Provider value={{SelectedElement, setSelectedElement}}>
-                                    <div>
-                                        {children}
-                                    </div>
+                        <DragDropLayoutContext.Provider
+                            value={{ DragElementLayout, setDragElementLayout }}
+                        >
+                            <EmailTemplateContext.Provider
+                                value={{ emailTemplate, setEmailTemplate }}
+                            >
+                                <SelectedElementContext.Provider
+                                    value={{ SelectedElement, setSelectedElement }}
+                                >
+                                    <div>{children}</div>
                                 </SelectedElementContext.Provider>
                             </EmailTemplateContext.Provider>
                         </DragDropLayoutContext.Provider>
@@ -93,13 +91,13 @@ export const useUserDetail = () => {
 };
 export const useScreenSize = () => {
     return useContext(ScreenSizeContext);
-}
+};
 export const useDragDropLayout = () => {
     return useContext(DragDropLayoutContext);
-}
+};
 export const useEmailTemplate = () => {
     return useContext(EmailTemplateContext);
-}
+};
 export const useSelectedElement = () => {
     return useContext(SelectedElementContext);
-}
+};
