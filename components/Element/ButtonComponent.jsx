@@ -1,14 +1,14 @@
 import React from 'react'
 import {Button} from "@/components/ui/button";
 
-export function ButtonComponent({style, content,url}) {
+export function ButtonComponent({style, content,url, outerStyle}) {
     return (
         <div>
-            <Button style={style} className={''} >
-                <a href={url}>
-                {content}
+                <a href={url} style={outerStyle}>
+                    <Button style={style}  className={''} >
+                        {content}
+                    </Button>
                 </a>
-            </Button>
         </div>
     )
 }

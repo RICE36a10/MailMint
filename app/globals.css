@@ -94,3 +94,6 @@ body {
   animation: moving-border 2s linear infinite;
 }
 
+label {
+  font-size: 14px;
+}
