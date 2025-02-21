@@ -7,6 +7,8 @@ import { InputStyleField } from "@/components/custom/Settings/InputStyleField";
 import { SliderField } from "@/components/custom/Settings/SliderField";
 import { Slider } from "@/components/ui/slider";
 import { TextAreaField } from "@/components/custom/Settings/TextAreaField";
+import {ToggleGroupField} from "@/components/custom/Settings/ToggleGroupField";
+import {AlignCenter, AlignLeft, AlignRight} from "lucide-react";
 
 export default function Settings() {
     const { SelectedElement, setSelectedElement } = useSelectedElement();
@@ -42,21 +44,65 @@ export default function Settings() {
         setSelectedElement(updatedElement);
     };
 
+    const TextAlignOptions = [
+        {
+            value: "left",
+            icon: AlignLeft
+        },
+        {
+            value: "center", // Change 'centre' to 'center'
+            icon: AlignCenter
+        },
+        {
+            value: "right",
+            icon: AlignRight
+        },
+    ];
+
+
+
+
     return (
-        <div className={"p-5 flex flex-col gap-4"}>
+        <div className={"p-5 flex flex-col gap-5"}>
             <h2 className={"font-bold text-xl"}>Settings</h2>
             {element?.content && (
                 <InputField
                     label={"Content"}
                     value={element?.content}
                     onHandleInputChange={(value) => onHandleInputChange("content", value)}
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
                 />
             )}
+            {element?.textarea && (
+                <TextAreaField
+                    label={"Text Area"}
+                    value={element?.textarea}
+                    onHandleInputChange={(value) =>
+                        onHandleInputChange('textarea', value)
+                    }
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
+                />
+            )}
+            {element?.style?.textAlign && (
+                <ToggleGroupField
+                    label={'Text Align'}
+                    value ={element?.style?.textAlign}
+                    options={TextAlignOptions}
+                    onHandleStyleChange={(value) =>
+                        onHandleStyleChange('textAlign', value)
+                    }
+                />
+            )
+            }
             {element?.url && (
                 <InputField
                     label={"url"}
                     value={element?.url}
                     onHandleInputChange={(value) => onHandleInputChange("url", value)}
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
                 />
             )}
             {element?.style?.backgroundColor && (
@@ -66,6 +112,8 @@ export default function Settings() {
                     onHandleStyleChange={(value) =>
                         onHandleStyleChange("backgroundColor", value)
                     }
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
                 />
             )}
             {element?.style?.color && (
@@ -73,6 +121,8 @@ export default function Settings() {
                     label={"Text color"}
                     value={element?.style?.color}
                     onHandleStyleChange={(value) => onHandleStyleChange("color", value)}
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
                 />
             )}
             {element?.style?.fontSize && (
@@ -80,15 +130,19 @@ export default function Settings() {
                     label={"Font Size"}
                     value={element?.style?.fontSize}
                     onHandleStyleChange={(value) =>
-                        onHandleStyleChange("fontSize", value)
+                        onHandleStyleChange('fontSize', value)
                     }
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
                 />
             )}
             {element?.style?.padding && (
                 <InputStyleField
                     label={"Padding"}
                     value={element?.style?.padding}
-                    onHandleStyleChange={(value) => onHandleStyleChange("padding", value)}
+                    onHandleStyleChange={(value) => onHandleStyleChange('padding', value)}
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
                 />
             )}
             {element?.style?.borderRadius && (
@@ -96,8 +150,13 @@ export default function Settings() {
                     label={"Border Radius"}
                     value={element?.style?.borderRadius}
                     onHandleStyleChange={(value) =>
-                        onHandleStyleChange("borderRadius", value)
+                        onHandleStyleChange('borderRadius', value)
                     }
+                    outerStyle={element?.outerStyle}
+                    MIN={0}
+                    MAX={25}
+                    STEP={0.05}
+                    style = {element?.style}
                 />
             )}
             {/* testing of Slider */}
@@ -109,19 +168,17 @@ export default function Settings() {
                 <SliderField
                     label={"Width"}
                     value={element?.style?.width}
-                    onHandleStyleChange={(value) => onHandleStyleChange("width", value)}
+                    onHandleStyleChange={(value) => onHandleStyleChange('width', value)}
                     type={"%"}
+                    MIN={5}
+                    MAX={600}
+                    STEP={1}
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
                 />
             )}
-            {element?.textarea && (
-                <TextAreaField
-                    label={"Text Area"}
-                    value={element?.textarea}
-                    onHandleInputChange={(value) =>
-                        onHandleInputChange("textarea", value)
-                    }
-                />
-            )}
+
+
         </div>
     );
 }

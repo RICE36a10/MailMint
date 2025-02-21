@@ -24,15 +24,6 @@ export function ColumnLayout({layout}) {
         })
     }
 
-    // const ondrophandle = () => {
-    //     const index = dragOver?.index;
-    //     setEmailTemplate(
-    //         prevItem =>
-    //             prevItem?.map(col => col.id === layout?.id?{...col,[index]:setDragElementLayout?.dragElement}:col)
-    //     )
-    //     setDragOver(null);
-    // }
-
     const ondrophandle = () => {
         if (!dragOver) return;
         const index = dragOver?.index;
@@ -81,7 +72,7 @@ export function ColumnLayout({layout}) {
                         <div
                             key={index}
 
-                            className={`p-2 flex cursor-pointer items-center 
+                            className={`p-0 flex cursor-pointer items-center 
                              ${!layout?.[index]?.type && "bg-gray-300 border border-dashed border-x-chart-3 border-y-chart-3 "} justify-center
                              ${index == dragOver?.index && dragOver?.columnId && "bg-green-100"}
                              ${(SelectedElement?.layout?.id === layout?.id && SelectedElement?.index == index) && 'border-blue-500 border ' }

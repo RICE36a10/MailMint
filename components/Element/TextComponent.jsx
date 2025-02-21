@@ -1,10 +1,10 @@
 import React from 'react'
 
-export function TextComponent({content, style}) {
+export function TextComponent({textarea, style, content, outerStyle}) {
     return (
-        <div>
+        <div style={outerStyle} className={'w-full'}>
             <h2 style={style}>
-                {content}
+                {textarea}
             </h2>
         </div>
     )

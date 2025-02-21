@@ -29,7 +29,7 @@ export default [
             padding: '10px',
             width: 'auto',
             fontSize: '16px',
-            borderRadius: '0px',
+            borderRadius: '7px',
             fontWeight: 'normal',
             objectFit: 'contain',
 
@@ -46,13 +46,13 @@ export default [
         type: 'Text',
         label: 'Text',
         textarea: 'Sample Text of text section',
-        content: 'sample Text',
         style: {
             backgroundColor: '#fff',
             color: '#000000',
-            padding: '10px',
+            padding: '5px',
             textAlign: 'center',
-            fontSize: '22px',
+            borderRadius: '0px',
+            fontSize: '12px',
             fontWeight: 'normal',
             textTransform: 'uppercase'//lowercase , capitilized
         },
