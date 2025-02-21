@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
-export function LogoHeaderComponent({style, imageUrl, outerStyle}) {
+export function LogoHeaderComponent({ style, imageUrl, outerStyle }) {
     return (
         <div>
-            <img src={imageUrl} alt={'LogoHeader'} style={style}/>
+            <img src={imageUrl} alt={"LogoHeader"} style={style} />
         </div>
-    )
+    );
 }

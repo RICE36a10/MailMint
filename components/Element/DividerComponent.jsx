@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
-export function DividerComponent({style}) {
+export function DividerComponent({ style }) {
     return (
         // <div>
-            <hr style={style}/>
+        <hr style={style} />
         // </div>
-    )
+    );
 }
