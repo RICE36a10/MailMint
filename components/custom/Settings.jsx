@@ -46,6 +46,23 @@ export default function Settings() {
         setSelectedElement(updatedElement);
     };
 
+    const onHandleOuterStyleChange = (fieldName, value) => {
+        let updatedElement = {
+            ...SelectedElement,
+            layout: {
+                ...SelectedElement?.layout,
+                [SelectedElement?.index]: {
+                    ...SelectedElement?.layout[SelectedElement?.index],
+                    outerStyle: {
+                        ...SelectedElement?.layout[SelectedElement?.index]?.outerStyle,
+                        [fieldName]: [value],
+                    },
+                },
+            },
+        };
+        setSelectedElement(updatedElement);
+    };
+
     const TextAlignOptions = [
         {
             value: "left",
@@ -171,6 +188,15 @@ export default function Settings() {
                     style = {element?.style}
                 />
             )}
+            {element?.style?.margin && (
+                <InputStyleField
+                    label={"Margin"}
+                    value={element?.style?.margin}
+                    onHandleStyleChange={(value) => onHandleStyleChange('margin', value)}
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
+                />
+            )}
             {element?.style?.borderRadius && (
                 <SliderField
                     label={"Border Radius"}
@@ -225,6 +251,29 @@ export default function Settings() {
                 />
             )
             }
+            <div>
+                <h2 className={'font-bold mb-2'}>Outer Style</h2>
+                {element?.outerStyle?.backgroundColor && (
+                    <ColourPickerField
+                        label={"Text color"}
+                        value={element?.outerStyle?.color}
+                        onHandleStyleChange={(value) => onHandleOuterStyleChange("color", value)}
+                        outerStyle={element?.outerStyle}
+                        style = {element?.style}
+                    />
+                )
+                }{element?.outerStyle?.justifyContent && (
+                    <ToggleGroupField
+                        label={"Align"}
+                        value={element?.outerStyle?.justifyContent}
+                        options={TextAlignOptions}
+                        onHandleStyleChange={(value) => onHandleOuterStyleChange("justifyContent", value)}
+                        outerStyle={element?.outerStyle}
+                        style = {element?.style}
+                    />
+                )
+                }
+            </div>
 
 
 

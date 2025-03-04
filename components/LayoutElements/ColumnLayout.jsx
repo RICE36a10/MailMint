@@ -12,6 +12,7 @@ import { LogoComponent } from "@/components/Element/LogoComponent";
 import { LogoHeaderComponent } from "@/components/Element/LogoHeaderComponent";
 import { SocialIconsComponent } from "@/components/Element/SocialIconsComponent";
 import { DividerComponent } from "@/components/Element/DividerComponent";
+import {Trash} from "lucide-react";
 
 export function ColumnLayout({ layout }) {
     const [dragOver, setDragOver] = useState();
@@ -45,6 +46,13 @@ export function ColumnLayout({ layout }) {
         console.log(emailTemplate);
     };
 
+    const DeleteLayout = (layoutId) => {
+        const updateEmailTemplate = emailTemplate?.filter(item => item.id !== layoutId);
+        setEmailTemplate(updateEmailTemplate);
+        setSelectedElement(null);
+    }
+
+
     const getElementComponent = (element) => {
         if (element?.type == "Button") {
             return <ButtonComponent {...element} />;
@@ -66,13 +74,14 @@ export function ColumnLayout({ layout }) {
     };
 
     return (
-        <div>
+        <div className={'relative'}>
             <div
                 style={{
                     display: "grid",
                     gridTemplateColumns: `repeat(${layout?.numOfCol || 1}, 1fr)`,
                     gap: "0px", // Added gap for better visibility
                 }}
+                className={`${SelectedElement?.layout?.id === layout?.id && 'border border-dashed border-red-900 border-2'}`}
             >
                 {layout?.numOfCol > 0 ? (
                     Array.from({ length: layout.numOfCol }).map((_, index) => (
@@ -98,6 +107,21 @@ export function ColumnLayout({ layout }) {
                 ) : (
                     <div className="p-4 text-center bg-red-200">No columns</div>
                 )}
+
+                {
+                    SelectedElement?.layout?.id === layout?.id &&
+                    <div className={
+                        'absolute cursor-pointer -right-10 bg-red-100 rounded-full p-2 ' +
+                        'hover:scale-110 hover:bg-red-200 hover:shadow-2xl  transition-all'
+                    }
+
+                         onClick={()=>DeleteLayout(layout?.id)}
+
+                    >
+                        <Trash className={'h-4 w-4 text-red-500  '}/>
+                    </div>
+                }
+
             </div>
         </div>
     );

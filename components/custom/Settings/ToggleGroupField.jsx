@@ -10,7 +10,7 @@ export function ToggleGroupField({label, value, onHandleStyleChange, options}) {
             </label>
             <ToggleGroup
                 type='single'
-                defaltValue={value}
+                defaultValue={value}
                 onValueChange={
                 (e) => onHandleStyleChange(e)
             }
