@@ -72,7 +72,7 @@ export default [
             backgroundColor: '#ffffff',
             padding: '10px',
             height: '50%',
-            width: '70%',
+            width: '100%',
             margin: '0px',
             borderRadius: '0px'
         },

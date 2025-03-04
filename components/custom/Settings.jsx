@@ -10,6 +10,7 @@ import { TextAreaField } from "@/components/custom/Settings/TextAreaField";
 import {ToggleGroupField} from "@/components/custom/Settings/ToggleGroupField";
 import {AArrowUp, AlignCenter, AlignLeft, AlignRight, CaseLower, CaseUpper} from "lucide-react";
 import {DropdownField} from "@/components/custom/Settings/DropdownField";
+import {ImagePreview} from "@/components/custom/Settings/ImagePreview";
 
 export default function Settings() {
     const { SelectedElement, setSelectedElement } = useSelectedElement();
@@ -81,6 +82,15 @@ export default function Settings() {
     return (
         <div className={"p-5 flex flex-col gap-5"}>
             <h2 className={"font-bold text-xl"}>Settings</h2>
+            {element?.imageUrl && (
+                <ImagePreview
+                    label={"Image Preview"}
+                    value={element?.imageUrl}
+                    onHandleInputChange={(value) => onHandleInputChange("imageUrl", value)}
+                    outerStyle={element?.outerStyle}
+                    style = {element?.style}
+                />
+            )}
             {element?.content && (
                 <InputField
                     label={"Content"}
