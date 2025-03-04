@@ -176,10 +176,6 @@ export default [
         outerStyle: {
             display: 'flex',
             gap: 15,
-
         }
-
-
     }
-
 ]

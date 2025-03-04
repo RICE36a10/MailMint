@@ -8,7 +8,8 @@ import { SliderField } from "@/components/custom/Settings/SliderField";
 import { Slider } from "@/components/ui/slider";
 import { TextAreaField } from "@/components/custom/Settings/TextAreaField";
 import {ToggleGroupField} from "@/components/custom/Settings/ToggleGroupField";
-import {AlignCenter, AlignLeft, AlignRight} from "lucide-react";
+import {AArrowUp, AlignCenter, AlignLeft, AlignRight, CaseLower, CaseUpper} from "lucide-react";
+import {DropdownField} from "@/components/custom/Settings/DropdownField";
 
 export default function Settings() {
     const { SelectedElement, setSelectedElement } = useSelectedElement();
@@ -56,6 +57,21 @@ export default function Settings() {
         {
             value: "right",
             icon: AlignRight
+        },
+    ];
+
+    const TextTransformOptions = [
+        {
+            value: "uppercase",
+            icon: CaseUpper
+        },
+        {
+            value: "lowercase",
+            icon: CaseLower
+        },
+        {
+            value: "capitalize",
+            icon: AArrowUp
         },
     ];
 
@@ -177,6 +193,29 @@ export default function Settings() {
                     style = {element?.style}
                 />
             )}
+            {element?.style?.textTransform && (
+                <ToggleGroupField
+                    label={'Text Transform'}
+                    value ={element?.style?.textTransform}
+                    options={TextTransformOptions}
+                    onHandleStyleChange={(value) =>
+                        onHandleStyleChange('textTransform', value)
+                    }
+                />
+            )
+            }
+            {element?.style?.fontWeight && (
+                <DropdownField
+                    label={'Font Weight'}
+                    value ={element?.style?.fontWeight}
+                    options={['normal', 'bold']}
+                    onHandleStyleChange={(value) =>
+                        onHandleStyleChange('fontWeight', value)
+                    }
+                />
+            )
+            }
+
 
 
         </div>
