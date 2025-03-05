@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CodeSquare, Code, Monitor, Smartphone } from "lucide-react";
 import { useScreenSize } from "@/app/provider";
-export const EditorHeader = ({viewHtmlCode}) => {
+export const EditorHeader = ({ viewHtmlCode }) => {
     const { ScreenSize, setScreenSize } = useScreenSize();
     console.log(ScreenSize);
 

@@ -7,10 +7,17 @@ import { InputStyleField } from "@/components/custom/Settings/InputStyleField";
 import { SliderField } from "@/components/custom/Settings/SliderField";
 import { Slider } from "@/components/ui/slider";
 import { TextAreaField } from "@/components/custom/Settings/TextAreaField";
-import {ToggleGroupField} from "@/components/custom/Settings/ToggleGroupField";
-import {AArrowUp, AlignCenter, AlignLeft, AlignRight, CaseLower, CaseUpper} from "lucide-react";
-import {DropdownField} from "@/components/custom/Settings/DropdownField";
-import {ImagePreview} from "@/components/custom/Settings/ImagePreview";
+import { ToggleGroupField } from "@/components/custom/Settings/ToggleGroupField";
+import {
+    AArrowUp,
+    AlignCenter,
+    AlignLeft,
+    AlignRight,
+    CaseLower,
+    CaseUpper,
+} from "lucide-react";
+import { DropdownField } from "@/components/custom/Settings/DropdownField";
+import { ImagePreview } from "@/components/custom/Settings/ImagePreview";
 
 export default function Settings() {
     const { SelectedElement, setSelectedElement } = useSelectedElement();
@@ -66,35 +73,32 @@ export default function Settings() {
     const TextAlignOptions = [
         {
             value: "left",
-            icon: AlignLeft
+            icon: AlignLeft,
         },
         {
             value: "center", // Change 'centre' to 'center'
-            icon: AlignCenter
+            icon: AlignCenter,
         },
         {
             value: "right",
-            icon: AlignRight
+            icon: AlignRight,
         },
     ];
 
     const TextTransformOptions = [
         {
             value: "uppercase",
-            icon: CaseUpper
+            icon: CaseUpper,
         },
         {
             value: "lowercase",
-            icon: CaseLower
+            icon: CaseLower,
         },
         {
             value: "capitalize",
-            icon: AArrowUp
+            icon: AArrowUp,
         },
     ];
-
-
-
 
     return (
         <div className={"p-5 flex flex-col gap-5"}>
@@ -103,9 +107,11 @@ export default function Settings() {
                 <ImagePreview
                     label={"Image Preview"}
                     value={element?.imageUrl}
-                    onHandleInputChange={(value) => onHandleInputChange("imageUrl", value)}
+                    onHandleInputChange={(value) =>
+                        onHandleInputChange("imageUrl", value)
+                    }
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.content && (
@@ -114,7 +120,7 @@ export default function Settings() {
                     value={element?.content}
                     onHandleInputChange={(value) => onHandleInputChange("content", value)}
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.textarea && (
@@ -122,30 +128,29 @@ export default function Settings() {
                     label={"Text Area"}
                     value={element?.textarea}
                     onHandleInputChange={(value) =>
-                        onHandleInputChange('textarea', value)
+                        onHandleInputChange("textarea", value)
                     }
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.style?.textAlign && (
                 <ToggleGroupField
-                    label={'Text Align'}
-                    value ={element?.style?.textAlign}
+                    label={"Text Align"}
+                    value={element?.style?.textAlign}
                     options={TextAlignOptions}
                     onHandleStyleChange={(value) =>
-                        onHandleStyleChange('textAlign', value)
+                        onHandleStyleChange("textAlign", value)
                     }
                 />
-            )
-            }
+            )}
             {element?.url && (
                 <InputField
                     label={"url"}
                     value={element?.url}
                     onHandleInputChange={(value) => onHandleInputChange("url", value)}
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.style?.backgroundColor && (
@@ -156,7 +161,7 @@ export default function Settings() {
                         onHandleStyleChange("backgroundColor", value)
                     }
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.style?.color && (
@@ -165,7 +170,7 @@ export default function Settings() {
                     value={element?.style?.color}
                     onHandleStyleChange={(value) => onHandleStyleChange("color", value)}
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.style?.fontSize && (
@@ -173,28 +178,28 @@ export default function Settings() {
                     label={"Font Size"}
                     value={element?.style?.fontSize}
                     onHandleStyleChange={(value) =>
-                        onHandleStyleChange('fontSize', value)
+                        onHandleStyleChange("fontSize", value)
                     }
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.style?.padding && (
                 <InputStyleField
                     label={"Padding"}
                     value={element?.style?.padding}
-                    onHandleStyleChange={(value) => onHandleStyleChange('padding', value)}
+                    onHandleStyleChange={(value) => onHandleStyleChange("padding", value)}
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.style?.margin && (
                 <InputStyleField
                     label={"Margin"}
                     value={element?.style?.margin}
-                    onHandleStyleChange={(value) => onHandleStyleChange('margin', value)}
+                    onHandleStyleChange={(value) => onHandleStyleChange("margin", value)}
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.style?.borderRadius && (
@@ -202,13 +207,13 @@ export default function Settings() {
                     label={"Border Radius"}
                     value={element?.style?.borderRadius}
                     onHandleStyleChange={(value) =>
-                        onHandleStyleChange('borderRadius', value)
+                        onHandleStyleChange("borderRadius", value)
                     }
                     outerStyle={element?.outerStyle}
                     MIN={0}
                     MAX={25}
                     STEP={0.05}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {/* testing of Slider */}
@@ -220,63 +225,61 @@ export default function Settings() {
                 <SliderField
                     label={"Width"}
                     value={element?.style?.width}
-                    onHandleStyleChange={(value) => onHandleStyleChange('width', value)}
+                    onHandleStyleChange={(value) => onHandleStyleChange("width", value)}
                     type={"%"}
                     MIN={5}
                     MAX={600}
                     STEP={1}
                     outerStyle={element?.outerStyle}
-                    style = {element?.style}
+                    style={element?.style}
                 />
             )}
             {element?.style?.textTransform && (
                 <ToggleGroupField
-                    label={'Text Transform'}
-                    value ={element?.style?.textTransform}
+                    label={"Text Transform"}
+                    value={element?.style?.textTransform}
                     options={TextTransformOptions}
                     onHandleStyleChange={(value) =>
-                        onHandleStyleChange('textTransform', value)
+                        onHandleStyleChange("textTransform", value)
                     }
                 />
-            )
-            }
+            )}
             {element?.style?.fontWeight && (
                 <DropdownField
-                    label={'Font Weight'}
-                    value ={element?.style?.fontWeight}
-                    options={['normal', 'bold']}
+                    label={"Font Weight"}
+                    value={element?.style?.fontWeight}
+                    options={["normal", "bold"]}
                     onHandleStyleChange={(value) =>
-                        onHandleStyleChange('fontWeight', value)
+                        onHandleStyleChange("fontWeight", value)
                     }
                 />
-            )
-            }
+            )}
             <div>
-                <h2 className={'font-bold mb-2'}>Outer Style</h2>
+                <h2 className={"font-bold mb-2"}>Outer Style</h2>
                 {element?.outerStyle?.backgroundColor && (
                     <ColourPickerField
                         label={"Text color"}
                         value={element?.outerStyle?.color}
-                        onHandleStyleChange={(value) => onHandleOuterStyleChange("color", value)}
+                        onHandleStyleChange={(value) =>
+                            onHandleOuterStyleChange("color", value)
+                        }
                         outerStyle={element?.outerStyle}
-                        style = {element?.style}
+                        style={element?.style}
                     />
-                )
-                }{element?.outerStyle?.justifyContent && (
+                )}
+                {element?.outerStyle?.justifyContent && (
                     <ToggleGroupField
                         label={"Align"}
                         value={element?.outerStyle?.justifyContent}
                         options={TextAlignOptions}
-                        onHandleStyleChange={(value) => onHandleOuterStyleChange("justifyContent", value)}
+                        onHandleStyleChange={(value) =>
+                            onHandleOuterStyleChange("justifyContent", value)
+                        }
                         outerStyle={element?.outerStyle}
-                        style = {element?.style}
+                        style={element?.style}
                     />
-                )
-                }
+                )}
             </div>
-
-
-
         </div>
     );
 }

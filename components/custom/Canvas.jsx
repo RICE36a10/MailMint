@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     useDragDropLayout,
     useEmailTemplate,
@@ -8,13 +8,13 @@ import {
 import layout from "@/Data/Layout";
 import { ColumnLayout } from "@/components/LayoutElements/ColumnLayout";
 import Layout from "@/Data/Layout";
-import {ViewHtmlDialog} from "@/components/custom/ViewHtmlDialog";
-export function Canvas({viewHtmlCode, closeDialog}) {
+import { ViewHtmlDialog } from "@/components/custom/ViewHtmlDialog";
+export function Canvas({ viewHtmlCode, closeDialog }) {
     const { ScreenSize, setScreenSize } = useScreenSize();
     const { DragElementLayout, setDragElementLayout } = useDragDropLayout();
     const { emailTemplate, setEmailTemplate } = useEmailTemplate();
     const [dragOver, setDragOver] = useState(false);
-    const [htmlCode, setHtmlCode] = useState('');
+    const [htmlCode, setHtmlCode] = useState("");
 
     const onDragOver = (e) => {
         e.preventDefault();
@@ -38,20 +38,18 @@ export function Canvas({viewHtmlCode, closeDialog}) {
 
     const htmlref = useRef(null);
 
-
     const GetHtmlCode = () => {
-        if(htmlref.current) {
+        if (htmlref.current) {
             const htmlContent = htmlref.current.innerHTML;
             console.log(htmlContent);
             setHtmlCode(htmlContent);
             console.log(htmlCode);
         }
-    }
+    };
 
     useEffect(() => {
-        viewHtmlCode && GetHtmlCode()
+        viewHtmlCode && GetHtmlCode();
     }, [viewHtmlCode]);
-
 
     return (
         <div className={"mt-20 flex justify-center "}>
@@ -73,7 +71,11 @@ export function Canvas({viewHtmlCode, closeDialog}) {
                     </div>
                 )}
             </div>
-            <ViewHtmlDialog openDialog={viewHtmlCode} htmlCode={htmlCode} closeDialog = {closeDialog} />
+            <ViewHtmlDialog
+                openDialog={viewHtmlCode}
+                htmlCode={htmlCode}
+                closeDialog={closeDialog}
+            />
         </div>
     );
 }

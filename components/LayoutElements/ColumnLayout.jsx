@@ -12,7 +12,7 @@ import { LogoComponent } from "@/components/Element/LogoComponent";
 import { LogoHeaderComponent } from "@/components/Element/LogoHeaderComponent";
 import { SocialIconsComponent } from "@/components/Element/SocialIconsComponent";
 import { DividerComponent } from "@/components/Element/DividerComponent";
-import {ArrowDown, ArrowUp, Trash} from "lucide-react";
+import { ArrowDown, ArrowUp, Trash } from "lucide-react";
 
 export function ColumnLayout({ layout }) {
     const [dragOver, setDragOver] = useState();
@@ -47,33 +47,37 @@ export function ColumnLayout({ layout }) {
     };
 
     const DeleteLayout = (layoutId) => {
-        const updateEmailTemplate = emailTemplate?.filter(item => item.id !== layoutId);
+        const updateEmailTemplate = emailTemplate?.filter(
+            (item) => item.id !== layoutId,
+        );
         setEmailTemplate(updateEmailTemplate);
         setSelectedElement(null);
-    }
-
+    };
 
     const MoveItemUp = (layoutID) => {
-        const index = emailTemplate.findIndex(
-            (item) => item.id === layoutID
-        )
-        if(index > 0){
-            setEmailTemplate(
-                (prevItem) => {
-                    const updateItems = [...prevItem];
-                    [updateItems[index], updateItems[index-1]] = [updateItems[index-1], updateItems[index]];
-                    return updateItems;
-                }
-            )
+        const index = emailTemplate.findIndex((item) => item.id === layoutID);
+        if (index > 0) {
+            setEmailTemplate((prevItem) => {
+                const updateItems = [...prevItem];
+                [updateItems[index], updateItems[index - 1]] = [
+                    updateItems[index - 1],
+                    updateItems[index],
+                ];
+                return updateItems;
+            });
         }
-    }
+    };
 
     const MoveItemDown = (layoutID) => {
         setEmailTemplate((prevItem) => {
             const index = prevItem.findIndex((item) => item.id === layoutID);
-            if (index < prevItem.length - 1) { // Fix: Ensure it doesn't go out of bounds
+            if (index < prevItem.length - 1) {
+                // Fix: Ensure it doesn't go out of bounds
                 const updatedItems = [...prevItem];
-                [updatedItems[index], updatedItems[index + 1]] = [updatedItems[index + 1], updatedItems[index]];
+                [updatedItems[index], updatedItems[index + 1]] = [
+                    updatedItems[index + 1],
+                    updatedItems[index],
+                ];
                 return updatedItems;
             }
             return prevItem; // Return unchanged if no swap happens
@@ -94,8 +98,6 @@ export function ColumnLayout({ layout }) {
     //         )
     //     }
     // }
-
-
 
     const getElementComponent = (element) => {
         if (element?.type == "Button") {
@@ -118,14 +120,14 @@ export function ColumnLayout({ layout }) {
     };
 
     return (
-        <div className={'relative'}>
+        <div className={"relative"}>
             <div
                 style={{
                     display: "grid",
                     gridTemplateColumns: `repeat(${layout?.numOfCol || 1}, 1fr)`,
                     gap: "0px", // Added gap for better visibility
                 }}
-                className={`${SelectedElement?.layout?.id === layout?.id && 'border border-dashed border-red-900 border-2'}`}
+                className={`${SelectedElement?.layout?.id === layout?.id && "border border-dashed border-red-900 border-2"}`}
             >
                 {layout?.numOfCol > 0 ? (
                     Array.from({ length: layout.numOfCol }).map((_, index) => (
@@ -152,39 +154,39 @@ export function ColumnLayout({ layout }) {
                     <div className="p-4 text-center bg-red-200">No columns</div>
                 )}
 
-                {
-                    SelectedElement?.layout?.id === layout?.id && (
-                        <>
-                            <div className={
-                                'absolute cursor-pointer -right-10 top-0 bg-red-100 rounded-full p-2 ' +
-                                'hover:scale-110 hover:bg-red-200 hover:shadow-2xl transition-all'
+                {SelectedElement?.layout?.id === layout?.id && (
+                    <>
+                        <div
+                            className={
+                                "absolute cursor-pointer -right-10 top-0 bg-red-100 rounded-full p-2 " +
+                                "hover:scale-110 hover:bg-red-200 hover:shadow-2xl transition-all"
                             }
-                                 onClick={()=>DeleteLayout(layout?.id)}
-                            >
-                                <Trash className={'h-4 w-4 text-red-500'}/>
-                            </div>
+                            onClick={() => DeleteLayout(layout?.id)}
+                        >
+                            <Trash className={"h-4 w-4 text-red-500"} />
+                        </div>
 
-                            <div className={
-                                'absolute cursor-pointer -right-10 top-12 bg-red-100 rounded-full p-2 ' +
-                                'hover:scale-110 hover:bg-red-200 hover:shadow-2xl transition-all'
+                        <div
+                            className={
+                                "absolute cursor-pointer -right-10 top-12 bg-red-100 rounded-full p-2 " +
+                                "hover:scale-110 hover:bg-red-200 hover:shadow-2xl transition-all"
                             }
-                                 onClick={()=>MoveItemUp(layout?.id)}
-                            >
-                                <ArrowUp className={'h-4 w-4 text-red-500'}/>
-                            </div>
+                            onClick={() => MoveItemUp(layout?.id)}
+                        >
+                            <ArrowUp className={"h-4 w-4 text-red-500"} />
+                        </div>
 
-                            <div className={
-                                'absolute cursor-pointer -right-10 top-24 bg-red-100 rounded-full p-2 ' +
-                                'hover:scale-110 hover:bg-red-200 hover:shadow-2xl transition-all'
+                        <div
+                            className={
+                                "absolute cursor-pointer -right-10 top-24 bg-red-100 rounded-full p-2 " +
+                                "hover:scale-110 hover:bg-red-200 hover:shadow-2xl transition-all"
                             }
-                                 onClick={()=>MoveItemDown(layout?.id)}
-                            >
-                                <ArrowDown className={'h-4 w-4 text-red-500'}/>
-                            </div>
-                        </>
-                    )
-                }
-
+                            onClick={() => MoveItemDown(layout?.id)}
+                        >
+                            <ArrowDown className={"h-4 w-4 text-red-500"} />
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );
