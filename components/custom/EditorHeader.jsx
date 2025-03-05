@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CodeSquare, Code, Monitor, Smartphone } from "lucide-react";
 import { useScreenSize } from "@/app/provider";
-export const EditorHeader = () => {
+export const EditorHeader = ({viewHtmlCode}) => {
     const { ScreenSize, setScreenSize } = useScreenSize();
     console.log(ScreenSize);
 
@@ -40,6 +40,7 @@ export const EditorHeader = () => {
                 <Button
                     variant={"ghost"}
                     className={"hover:text-primary    hover:bg-purple-100  "}
+                    onClick={() => viewHtmlCode(true)}
                 >
                     <Code />
                 </Button>
