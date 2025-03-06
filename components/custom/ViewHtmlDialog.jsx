@@ -11,12 +11,17 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Copy } from "lucide-react";
 import { toast, Toaster } from "react-hot-toast";
-
 export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog }) {
     const copyCode = () => {
-        navigator.clipboard.writeText(htmlCode);
-        toast.success("Copied to Clipboard!");
+        try {
+            navigator.clipboard.writeText(htmlCode);
+            toast.success("Copied to Clipboard!");
+        } catch (error) {
+            toast.error("Failed to copy. Please try again!");
+            console.error("Clipboard Copy Error:", error);
+        }
     };
+
     return (
         <>
             <Toaster position="top-right" reverseOrder={false} />
@@ -25,17 +30,16 @@ export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog }) {
                     <DialogHeader>
                         <DialogTitle asChild>
                             <div className={"flex justify-between items-center p-2"}>
-                                <h2>
+                                <h2 className={'flex gap-2'}>
                                     Html Email Template{" "}
-                                    <span
-                                        className={"hover:scale-150 transition-all bg-pink-300"}
-                                    >
-                    🚀
-                  </span>
+                                    <div className={'hover:scale-[1.6] transition-all cursor-pointer'}>
+                                        🚀
+                                    </div>
+
                                 </h2>
                                 <Copy
                                     className={
-                                        "p-1 bg-gray-200 rounded-lg h-8 w-8 mr-5 hover:bg-red-200 hover:accent-red-500 transition-all hover:scale-110   "
+                                        "p-1 bg-gray-200 rounded-lg h-8 w-8 mr-5 hover:bg-red-200 hover:accent-red-500 transition-all hover:scale-110 cursor-pointer  "
                                     }
                                     onClick={copyCode}
                                 />

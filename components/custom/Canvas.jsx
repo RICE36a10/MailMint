@@ -9,6 +9,7 @@ import layout from "@/Data/Layout";
 import { ColumnLayout } from "@/components/LayoutElements/ColumnLayout";
 import Layout from "@/Data/Layout";
 import { ViewHtmlDialog } from "@/components/custom/ViewHtmlDialog";
+import {toast, Toaster} from "react-hot-toast";
 export function Canvas({ viewHtmlCode, closeDialog }) {
     const { ScreenSize, setScreenSize } = useScreenSize();
     const { DragElementLayout, setDragElementLayout } = useDragDropLayout();
@@ -26,6 +27,7 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
         console.log(DragElementLayout?.dragLayout, "helllo ");
         if (DragElementLayout?.dragLayout) {
             setEmailTemplate((prev) => [...prev, DragElementLayout?.dragLayout]);
+            toast.success("New Set of Column Added");
         }
     };
 
@@ -52,30 +54,33 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
     }, [viewHtmlCode]);
 
     return (
-        <div className={"mt-20 flex justify-center "}>
-            <div
-                className={`bg-white p-6 w-full 
+        <>
+            <Toaster position="top-right" reverseOrder={false} />
+            <div className={"mt-20 flex justify-center "}>
+                <div
+                    className={`bg-white p-6 w-full 
                     ${ScreenSize === "desktop" ? "max-w-2xl" : "max-w-lg"} 
                     ${dragOver ? "bg-purple-100 p-4" : ""}`}
-                onDragOver={onDragOver}
-                onDrop={onDropHandler}
-                ref={htmlref}
-            >
-                {emailTemplate?.length > 0 ? (
-                    emailTemplate.map((layout, index) => (
-                        <div key={index}>{getLayoutComponent(layout)}</div>
-                    ))
-                ) : (
-                    <div className="p-4 text-center bg-gray-100 border border-dashed border-primary">
-                        Add layout here
-                    </div>
-                )}
+                    onDragOver={onDragOver}
+                    onDrop={onDropHandler}
+                    ref={htmlref}
+                >
+                    {emailTemplate?.length > 0 ? (
+                        emailTemplate.map((layout, index) => (
+                            <div key={index}>{getLayoutComponent(layout)}</div>
+                        ))
+                    ) : (
+                        <div className="p-4 text-center bg-gray-100 border border-dashed border-primary">
+                            Add layout here
+                        </div>
+                    )}
+                </div>
+                <ViewHtmlDialog
+                    openDialog={viewHtmlCode}
+                    htmlCode={htmlCode}
+                    closeDialog={closeDialog}
+                />
             </div>
-            <ViewHtmlDialog
-                openDialog={viewHtmlCode}
-                htmlCode={htmlCode}
-                closeDialog={closeDialog}
-            />
-        </div>
+        </>
     );
 }

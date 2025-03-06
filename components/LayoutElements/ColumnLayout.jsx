@@ -13,6 +13,7 @@ import { LogoHeaderComponent } from "@/components/Element/LogoHeaderComponent";
 import { SocialIconsComponent } from "@/components/Element/SocialIconsComponent";
 import { DividerComponent } from "@/components/Element/DividerComponent";
 import { ArrowDown, ArrowUp, Trash } from "lucide-react";
+import {toast, Toaster} from "react-hot-toast";
 
 export function ColumnLayout({ layout }) {
     const [dragOver, setDragOver] = useState();
@@ -44,6 +45,8 @@ export function ColumnLayout({ layout }) {
         );
         setDragOver(null);
         console.log(emailTemplate);
+        toast.success("Element added");
+        console.log("tapka dia");
     };
 
     const DeleteLayout = (layoutId) => {
@@ -52,52 +55,47 @@ export function ColumnLayout({ layout }) {
         );
         setEmailTemplate(updateEmailTemplate);
         setSelectedElement(null);
+        toast.success("Item Deleted");
     };
+
 
     const MoveItemUp = (layoutID) => {
         const index = emailTemplate.findIndex((item) => item.id === layoutID);
         if (index > 0) {
-            setEmailTemplate((prevItem) => {
-                const updateItems = [...prevItem];
-                [updateItems[index], updateItems[index - 1]] = [
-                    updateItems[index - 1],
-                    updateItems[index],
-                ];
-                return updateItems;
-            });
+            const updateItems = [...emailTemplate]; // Directly copy state
+            [updateItems[index], updateItems[index - 1]] = [
+                updateItems[index - 1],
+                updateItems[index],
+            ];
+
+            setEmailTemplate(updateItems); // State update
+            toast.success("Item Moved Up"); // Toast outside state update
+            return updateItems;
         }
     };
 
+
     const MoveItemDown = (layoutID) => {
+        let moved = false; // Flag to track if the item moved
+
         setEmailTemplate((prevItem) => {
             const index = prevItem.findIndex((item) => item.id === layoutID);
             if (index < prevItem.length - 1) {
-                // Fix: Ensure it doesn't go out of bounds
                 const updatedItems = [...prevItem];
                 [updatedItems[index], updatedItems[index + 1]] = [
                     updatedItems[index + 1],
                     updatedItems[index],
                 ];
+                moved = true; // Set flag to true
                 return updatedItems;
             }
-            return prevItem; // Return unchanged if no swap happens
+            return prevItem;
         });
-    };
 
-    // const MoveItemDown = (layoutID) => {
-    //     const index = emailTemplate.findIndex(
-    //         (item) => item.id === layoutID
-    //     )
-    //     if(index > 0){
-    //         setEmailTemplate(
-    //             (prevItem) => {
-    //                 const updateItems = [...prevItem];
-    //                 [updateItems[index], updateItems[index+1]] = [updateItems[index+1], updateItems[index]];
-    //                 return updateItems;
-    //             }
-    //         )
-    //     }
-    // }
+        if (moved) {
+            toast.success("Item Moved Down");
+        }
+    };
 
     const getElementComponent = (element) => {
         if (element?.type == "Button") {
@@ -121,6 +119,7 @@ export function ColumnLayout({ layout }) {
 
     return (
         <div className={"relative"}>
+            <Toaster position="top-right" reverseOrder={false} />
             <div
                 style={{
                     display: "grid",

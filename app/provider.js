@@ -7,6 +7,7 @@ import ScreenSizeContext from "../context/ScreenSizeContext";
 import { DragDropLayoutContext } from "@/context/DragDropLayoutElement";
 import { EmailTemplateContext } from "@/context/EmailTemplateContext";
 import { SelectedElementContext } from "@/context/SelectedElement";
+import { ThemeProvider } from "next-themes";
 function Provider({ children }) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
     const [userDetail, setUserDetail] = useState({});
@@ -60,27 +61,29 @@ function Provider({ children }) {
     }, [SelectedElement]);
 
     return (
-        <ConvexProvider client={convex}>
-            <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
-                <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
-                    <ScreenSizeContext.Provider value={{ ScreenSize, setScreenSize }}>
-                        <DragDropLayoutContext.Provider
-                            value={{ DragElementLayout, setDragElementLayout }}
-                        >
-                            <EmailTemplateContext.Provider
-                                value={{ emailTemplate, setEmailTemplate }}
+        <ThemeProvider attribute="class">
+            <ConvexProvider client={convex}>
+                <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+                    <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
+                        <ScreenSizeContext.Provider value={{ ScreenSize, setScreenSize }}>
+                            <DragDropLayoutContext.Provider
+                                value={{ DragElementLayout, setDragElementLayout }}
                             >
-                                <SelectedElementContext.Provider
-                                    value={{ SelectedElement, setSelectedElement }}
+                                <EmailTemplateContext.Provider
+                                    value={{ emailTemplate, setEmailTemplate }}
                                 >
-                                    <div>{children}</div>
-                                </SelectedElementContext.Provider>
-                            </EmailTemplateContext.Provider>
-                        </DragDropLayoutContext.Provider>
-                    </ScreenSizeContext.Provider>
-                </UserDetailContext.Provider>
-            </GoogleOAuthProvider>
-        </ConvexProvider>
+                                    <SelectedElementContext.Provider
+                                        value={{ SelectedElement, setSelectedElement }}
+                                    >
+                                        <div>{children}</div>
+                                    </SelectedElementContext.Provider>
+                                </EmailTemplateContext.Provider>
+                            </DragDropLayoutContext.Provider>
+                        </ScreenSizeContext.Provider>
+                    </UserDetailContext.Provider>
+                </GoogleOAuthProvider>
+            </ConvexProvider>
+        </ThemeProvider>
     );
 }
 

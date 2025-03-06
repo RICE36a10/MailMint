@@ -63,7 +63,7 @@ export default [
         icon: Image,
         type: "Image",
         label: "Image",
-        imageUrl: "/image.png",
+        imageUrl: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
         alt: "Image",
         url: "#",
         style: {
@@ -86,7 +86,7 @@ export default [
         icon: Frame,
         type: "Logo",
         label: "Logo",
-        imageUrl: "/logo.svg",
+        imageUrl: "https://img.freepik.com/free-vector/set-black-circle-social-media-logos-with-new-x-logo_78370-3651.jpg",
         alt: "logo",
         url: "#",
         style: {
