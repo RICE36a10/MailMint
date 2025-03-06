@@ -7,12 +7,12 @@ export async function POST(req) {
     try {
         const result = await GenerateEmailTemplateAIModel.sendMessage(prompt);
 
-        const aiResponse = result.response.text();
+        const aiResponse = await result.response.text();
         console.log(aiResponse);
 
         // save to DB
 
-        return NextResponse(aiResponse);
+        return NextResponse.json({ response: aiResponse });
     } catch (e) {
         return NextResponse.json({error: e});
     }
