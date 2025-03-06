@@ -14,7 +14,7 @@ export const Header = () => {
 
     return (
         <div className="flex justify-between items-center p-4 shadow-sm px-10">
-            <Image src="/logo.svg" alt="logo" width={180} height={140} />
+            <Image src="/logo.svg" alt="logo" width={50} height={70} className={'bg-red-100 ml-10 scale-125 border rounded-sm   '} />
             <div>
                 {userDetail?.email ? (
                     <div className="flex gap-3 items-center">

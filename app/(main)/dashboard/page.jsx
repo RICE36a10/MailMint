@@ -11,16 +11,12 @@ const Dashboard = () => {
 
     return (
         <div>
-            <Header/>
             <div className={"p-10 md:px-28 lg:px-40 xl:px-56 mt-16"}>
                 <div className={'flex justify-between items-center'}>
                     <h2 className={'font-bold text-3xl '}>Welcome, {userDetail?.name}</h2>
                     <Button> + create new email template</Button>
                 </div>
-
                 <EmailTemplateList/>
-
-
             </div>
         </div>
     );
