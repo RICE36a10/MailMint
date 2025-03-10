@@ -13,7 +13,7 @@ import {api} from "@/convex/_generated/api";
 function editor() {
     const [viewHtmlCode, setViewHtmlCode] = useState();
 
-    const {templateID} = useParams();
+    const {templateId} = useParams();
     const {userDetail, setUserDetail} = useUserDetail();
     const convex = useConvex();
 
@@ -26,14 +26,18 @@ function editor() {
         }
     }, [userDetail]);
 
+
     const GetTemplateData = async () => {
-        const result = await convex.query(api.emailTemplate.GetTemplateDesign,{
-            tid: templateID,
-            email:userDetail.email,
-        })
-        console.log(result, "GetTemplateData");
-        console.log("hellopage");
-    }
+        try {
+            const result = await convex.query(api.emailTemplate.GetTemplateDesign, {
+                tid: templateId,
+                email: userDetail.email,
+            });
+            console.log(result, "GetTemplateData");
+        } catch (error) {
+            console.error("Error fetching template data:", error);
+        }
+    };
 
     return (
         <div>
