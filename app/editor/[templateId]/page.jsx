@@ -1,13 +1,39 @@
 "use client";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { EditorHeader } from "@/components/custom/EditorHeader";
 import { Canvas } from "@/components/custom/Canvas";
 import ElementsSideBar from "@/components/custom/ElementsSideBar";
 import Settings from "@/components/custom/Settings";
-import { useScreenSize } from "@/app/provider";
+import {useScreenSize, useUserDetail} from "@/app/provider";
+import {useParams} from "next/navigation";
+import {useConvex, useQuery} from "convex/react";
+import {GetTemplateDesign } from "@/convex/emailTemplate";
+import {api} from "@/convex/_generated/api";
 
 function editor() {
     const [viewHtmlCode, setViewHtmlCode] = useState();
+
+    const {templateID} = useParams();
+    const {userDetail, setUserDetail} = useUserDetail();
+    const convex = useConvex();
+
+    useEffect(() => {
+        if (userDetail) {
+            console.log("Fetching template data...");
+            GetTemplateData();
+        } else {
+            console.log("userDetail is undefined or null");
+        }
+    }, [userDetail]);
+
+    const GetTemplateData = async () => {
+        const result = await convex.query(api.emailTemplate.GetTemplateDesign,{
+            tid: templateID,
+            email:userDetail.email,
+        })
+        console.log(result, "GetTemplateData");
+        console.log("hellopage");
+    }
 
     return (
         <div>

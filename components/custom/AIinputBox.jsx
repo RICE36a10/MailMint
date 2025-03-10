@@ -9,6 +9,7 @@ import {api} from "@/convex/_generated/api";
 import {v4 as uuidv4} from "uuid";
 import {useUserDetail} from "@/app/provider";
 import {LoaderCircle} from "lucide-react";
+import {useRouter} from "next/navigation";
 
 export function AIinputBox() {
     const [userInput, setUserInput] = useState('');
@@ -17,7 +18,7 @@ export function AIinputBox() {
     const {userDetail, SetUserDetail} = useUserDetail();
 
     const tid = uuidv4()
-
+    const router = useRouter();
     const Ongenerate = async () => {
         const PROMPT = Prompt.EMAIL_PROMPT+"\n-"+userInput;
         setLoading(true);
@@ -40,8 +41,8 @@ export function AIinputBox() {
                 design: result.data?.response || "Error generating response",
                 email: userDetail?.email,
             });
-
             console.log(respo);
+            await router.push('/editor/'+tid);
             setLoading(false);
         }catch (e){
             console.log(e);

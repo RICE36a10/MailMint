@@ -27,6 +27,19 @@ function Provider({ children }) {
         return [];
     });
 
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const storage = JSON.parse(localStorage.getItem("userDetail"));
+            if (storage?.email) {
+                setUserDetail(storage);
+            } else {
+                console.error("No email found in local storage");
+            }
+        }
+    }, []);
+
+
     useEffect(() => {
         console.log("Current ScreenSize:", ScreenSize);
     }, [ScreenSize]);
