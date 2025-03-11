@@ -27,7 +27,7 @@ export function AIinputBox() {
                 prompt: PROMPT,
             })
 
-            console.log(result.data);
+            console.log(result.data + "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
             console.log("AI Response:", result.data); // Debugging
 
             // const respo = await SaveTemplate({
@@ -40,6 +40,7 @@ export function AIinputBox() {
                 tid: tid,
                 design: result.data?.response || "Error generating response",
                 email: userDetail?.email,
+                description: userInput,
             });
             console.log(respo);
             await router.push('/editor/'+tid);
@@ -59,7 +60,7 @@ export function AIinputBox() {
                 className={'w-1/5 transition-all hover:scale-105'}
                 disabled={(userInput?.length <= 10 || loading)}
                 onClick={Ongenerate}
-            > {loading === true ? <span className={'scale-125'}><LoaderCircle className={'animate-spin'}/></span>  : 'Generate'} </Button>
+            > {loading === true ? <span className={'scale-125 flex'}><LoaderCircle className={'animate-spin'}/></span>  : 'Generate'} </Button>
         </div>
     )
 }

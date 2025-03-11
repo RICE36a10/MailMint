@@ -6,6 +6,7 @@ export const SaveTemplate = mutation({
         tid: v.string(),
         design: v.any(),
         email: v.string(),
+        description: v.string(),
     },
     handler: async (ctx, args) => {
         try {
@@ -13,6 +14,7 @@ export const SaveTemplate = mutation({
                 tid: args?.tid,
                 design: args?.design,
                 email: args?.email,
+                description: args.description,
             });
         } catch (e) {
             console.log(e);

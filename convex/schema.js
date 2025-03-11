@@ -10,6 +10,7 @@ export default defineSchema({
     emailTemplates: defineTable({
         tid:v.string(),
         design:v.any(),
+        description:v.any(),
         email:v.string(),
     })
 })

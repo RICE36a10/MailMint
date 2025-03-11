@@ -15,10 +15,13 @@ function Provider({ children }) {
     const [DragElementLayout, setDragElementLayout] = useState({});
     const [SelectedElement, setSelectedElement] = useState();
 
+
     const [emailTemplate, setEmailTemplate] = useState(() => {
         if (typeof window !== "undefined") {
             try {
-                return JSON.parse(localStorage.getItem("emailTemplate")) ?? [];
+                const storedData = localStorage.getItem("emailTemplate");
+                const parsedData = storedData ? JSON.parse(storedData) : [];
+                return Array.isArray(parsedData) ? parsedData : [];
             } catch (error) {
                 console.error("Error parsing localStorage:", error);
                 return [];
@@ -28,10 +31,23 @@ function Provider({ children }) {
     });
 
 
+    // const [emailTemplate, setEmailTemplate] = useState(() => {
+    //     if (typeof window !== "undefined") {
+    //         try {
+    //             return JSON.parse(localStorage.getItem("emailTemplate")) ?? [];
+    //         } catch (error) {
+    //             console.error("Error parsing localStorage:", error);
+    //             return [];
+    //         }
+    //     }
+    //     return [];
+    // });
+
+
     useEffect(() => {
         if (typeof window !== "undefined") {
             const storage = JSON.parse(localStorage.getItem("userDetail"));
-            if (storage?.email) {
+            if (storage?.email && storage) {
                 setUserDetail(storage);
             } else {
                 console.error("No email found in local storage");
@@ -58,6 +74,11 @@ function Provider({ children }) {
             }
         }
     }, []);
+
+    useEffect(() => {
+        console.log("Updated Email Template:", emailTemplate);
+    }, [emailTemplate]);
+
 
     useEffect(() => {
         if (SelectedElement) {

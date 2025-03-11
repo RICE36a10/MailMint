@@ -53,6 +53,11 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
         viewHtmlCode && GetHtmlCode();
     }, [viewHtmlCode]);
 
+
+    useEffect(() => {
+        console.log("agdsgdufauyjfds",emailTemplate);
+    }, [emailTemplate]);
+
     return (
         <>
             <Toaster position="top-right" reverseOrder={false} />
@@ -65,15 +70,28 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
                     onDrop={onDropHandler}
                     ref={htmlref}
                 >
-                    {emailTemplate?.length > 0 ? (
-                        emailTemplate.map((layout, index) => (
-                            <div key={index}>{getLayoutComponent(layout)}</div>
-                        ))
+                    {emailTemplate.length > 0 ? (
+                        <>
+                            <p>Email Template Found ✅</p>
+                            {emailTemplate.map((layout, index) => (
+                                <div key={index}>{getLayoutComponent(layout) || "Empty Component"}</div>
+                            ))}
+                        </>
                     ) : (
-                        <div className="p-4 text-center bg-gray-100 border border-dashed border-primary">
-                            Add layout here
-                        </div>
+                        <p>Email Template Empty ❌   {console.log("poiii"+emailTemplate)}</p>
+
                     )}
+
+
+                    {/*{emailTemplate?.length > 0 ? (*/}
+                    {/*    emailTemplate.map((layout, index) => (*/}
+                    {/*        <div key={index}>{getLayoutComponent(layout)}</div>*/}
+                    {/*    ))*/}
+                    {/*) : (*/}
+                    {/*    <div className="p-4 text-center bg-gray-100 border border-dashed border-primary">*/}
+                    {/*        Add layout here*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                 </div>
                 <ViewHtmlDialog
                     openDialog={viewHtmlCode}
