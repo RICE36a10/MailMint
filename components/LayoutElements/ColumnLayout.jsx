@@ -32,7 +32,6 @@ export function ColumnLayout({ layout }) {
     const ondrophandle = () => {
         if (!dragOver) return;
         const index = dragOver?.index;
-
         setEmailTemplate((prevItem) =>
             prevItem?.map((col) =>
                 col.id === layout?.id

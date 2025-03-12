@@ -32,8 +32,8 @@ export const GetTemplateDesign = query({
             const result = await ctx.db
                 .query("emailTemplates")
                 .filter((q) =>
-                    q.and(q.eq(q.field("tid"),args.tid),
-                    q.eq(q.field("email"), args.email))
+                    q.and(q.eq(q.field("tid"),args?.tid),
+                    q.eq(q.field("email"), args?.email))
                 )
                 .collect();
             return result[0];
@@ -43,4 +43,36 @@ export const GetTemplateDesign = query({
             return {};
         }
     },
+});
+
+export const UpdateTemplateDesign  = mutation({
+    args: {
+        tid:v.string(),
+        design:v.any(),
+    },
+    handler: async (ctx, args) => {
+        // get doc id
+        const result = await ctx.db.query('emailTemplates')
+            .filter(q=>q.eq(q.field("tid"),args.tid)).collect();
+
+        const docID = result[0]._id;
+        console.log(docID);
+        // update that docId
+        await ctx.db.patch(docID,{
+            design: args.design,
+        })
+    }
+})
+
+
+export const GetAllUserTemplate = query({
+    args: {
+        email: v.string(),
+    },
+    handler: async (ctx, args) => {
+        return await ctx.db
+            .query("emailTemplates") // ✅ Ensure correct collection name
+            .filter(q => q.eq(q.field("email"), args.email))
+            .collect();
+    }
 });

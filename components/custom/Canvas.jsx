@@ -10,6 +10,10 @@ import { ColumnLayout } from "@/components/LayoutElements/ColumnLayout";
 import Layout from "@/Data/Layout";
 import { ViewHtmlDialog } from "@/components/custom/ViewHtmlDialog";
 import {toast, Toaster} from "react-hot-toast";
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faBan, faFaceSadTear} from "@fortawesome/free-solid-svg-icons";
 export function Canvas({ viewHtmlCode, closeDialog }) {
     const { ScreenSize, setScreenSize } = useScreenSize();
     const { DragElementLayout, setDragElementLayout } = useDragDropLayout();
@@ -55,12 +59,19 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
 
 
     useEffect(() => {
-        console.log("agdsgdufauyjfds",emailTemplate);
+        console.log("agdsgdufauyjfds",emailTemplate?.design);
+        console.log("agdsgdufauyjfds",typeof(emailTemplate?.design));
+        console.log("agdsgdufauyjfds",typeof(emailTemplate));
     }, [emailTemplate]);
+
+    const [TempTemplate, setTempTemplate] = useState([]);
+
+    const p = [{4:4}, {4:4}, {4:4}, {4:4}];
+
 
     return (
         <>
-            <Toaster position="top-right" reverseOrder={false} />
+
             <div className={"mt-20 flex justify-center "}>
                 <div
                     className={`bg-white p-6 w-full 
@@ -72,14 +83,14 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
                 >
                     {emailTemplate.length > 0 ? (
                         <>
-                            <p>Email Template Found ✅</p>
                             {emailTemplate.map((layout, index) => (
                                 <div key={index}>{getLayoutComponent(layout) || "Empty Component"}</div>
                             ))}
                         </>
                     ) : (
-                        <p>Email Template Empty ❌   {console.log("poiii"+emailTemplate)}</p>
-
+                        <p className={' flex justify-center items-center bg-gray-100 h-[400px] text-2xl'}>Template Empty or Not Found
+                            <FontAwesomeIcon className={'ml-2'} icon={faBan} />
+                        </p>
                     )}
 
 

@@ -144,6 +144,16 @@ export default function Settings() {
                     }
                 />
             )}
+            {element?.style?.textTransform && (
+                <ToggleGroupField
+                    label={"Text Transform"}
+                    value={element?.style?.textTransform}
+                    options={TextTransformOptions}
+                    onHandleStyleChange={(value) =>
+                        onHandleStyleChange("textTransform", value)
+                    }
+                />
+            )}
             {element?.url && (
                 <InputField
                     label={"url"}
@@ -153,26 +163,30 @@ export default function Settings() {
                     style={element?.style}
                 />
             )}
-            {element?.style?.backgroundColor && (
-                <ColourPickerField
-                    label={"BackGround Colour"}
-                    value={element?.style?.backgroundColor}
-                    onHandleStyleChange={(value) =>
-                        onHandleStyleChange("backgroundColor", value)
-                    }
-                    outerStyle={element?.outerStyle}
-                    style={element?.style}
-                />
-            )}
-            {element?.style?.color && (
-                <ColourPickerField
-                    label={"Text color"}
-                    value={element?.style?.color}
-                    onHandleStyleChange={(value) => onHandleStyleChange("color", value)}
-                    outerStyle={element?.outerStyle}
-                    style={element?.style}
-                />
-            )}
+            {
+                <div className={'flex gap-6 bg-gray-100 justify-around'}>
+                    {element?.style?.backgroundColor && (
+                        <ColourPickerField
+                            label={"BackGround Colour"}
+                            value={element?.style?.backgroundColor}
+                            onHandleStyleChange={(value) =>
+                                onHandleStyleChange("backgroundColor", value)
+                            }
+                            outerStyle={element?.outerStyle}
+                            style={element?.style}
+                        />
+                    )}
+                    {element?.style?.color && (
+                        <ColourPickerField
+                            label={"Text color"}
+                            value={element?.style?.color}
+                            onHandleStyleChange={(value) => onHandleStyleChange("color", value)}
+                            outerStyle={element?.outerStyle}
+                            style={element?.style}
+                        />
+                    )}
+                </div>
+            }
             {element?.style?.fontSize && (
                 <InputStyleField
                     label={"Font Size"}
@@ -234,16 +248,6 @@ export default function Settings() {
                     style={element?.style}
                 />
             )}
-            {element?.style?.textTransform && (
-                <ToggleGroupField
-                    label={"Text Transform"}
-                    value={element?.style?.textTransform}
-                    options={TextTransformOptions}
-                    onHandleStyleChange={(value) =>
-                        onHandleStyleChange("textTransform", value)
-                    }
-                />
-            )}
             {element?.style?.fontWeight && (
                 <DropdownField
                     label={"Font Weight"}
@@ -255,30 +259,36 @@ export default function Settings() {
                 />
             )}
             <div>
-                <h2 className={"font-bold mb-2"}>Outer Style</h2>
-                {element?.outerStyle?.backgroundColor && (
-                    <ColourPickerField
-                        label={"Text color"}
-                        value={element?.outerStyle?.color}
-                        onHandleStyleChange={(value) =>
-                            onHandleOuterStyleChange("color", value)
-                        }
-                        outerStyle={element?.outerStyle}
-                        style={element?.style}
-                    />
-                )}
-                {element?.outerStyle?.justifyContent && (
-                    <ToggleGroupField
-                        label={"Align"}
-                        value={element?.outerStyle?.justifyContent}
-                        options={TextAlignOptions}
-                        onHandleStyleChange={(value) =>
-                            onHandleOuterStyleChange("justifyContent", value)
-                        }
-                        outerStyle={element?.outerStyle}
-                        style={element?.style}
-                    />
-                )}
+                {
+                    SelectedElement && (
+                        <div>
+                            <h2 className={"font-bold mb-2"}>Outer Style</h2>
+                            {element?.outerStyle?.backgroundColor && (
+                                <ColourPickerField
+                                    label={"Text color"}
+                                    value={element?.outerStyle?.color}
+                                    onHandleStyleChange={(value) =>
+                                        onHandleOuterStyleChange("color", value)
+                                    }
+                                    outerStyle={element?.outerStyle}
+                                    style={element?.style}
+                                />
+                            )}
+                            {element?.outerStyle?.justifyContent && (
+                                <ToggleGroupField
+                                    label={"Align"}
+                                    value={element?.outerStyle?.justifyContent}
+                                    options={TextAlignOptions}
+                                    onHandleStyleChange={(value) =>
+                                        onHandleOuterStyleChange("justifyContent", value)
+                                    }
+                                    outerStyle={element?.outerStyle}
+                                    style={element?.style}
+                                />
+                            )}
+                        </div>
+                    )
+                }
             </div>
         </div>
     );

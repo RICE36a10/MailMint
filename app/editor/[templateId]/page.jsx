@@ -39,7 +39,7 @@ function editor() {
             });
             console.log(result, "GetTemplateData");
             console.log(emailTemplate);
-            setEmailTemplate(result);
+            setEmailTemplate(JSON.parse(result?.design || "[]"));
             setLoading(false);
         } catch (error) {
             console.error("Error fetching template data:", error);

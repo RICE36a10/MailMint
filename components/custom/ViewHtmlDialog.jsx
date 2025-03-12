@@ -24,7 +24,7 @@ export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog }) {
 
     return (
         <>
-            <Toaster position="top-right" reverseOrder={false} />
+
             <Dialog open={openDialog} onOpenChange={closeDialog}>
                 <DialogContent>
                     <DialogHeader>

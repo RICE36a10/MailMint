@@ -19,12 +19,12 @@ const generationConfig = {
     responseMimeType: "application/json",
 };
 
-    export const GenerateEmailTemplateAIModel = model.startChat({
-        generationConfig,
-        history: [
+export const GenerateEmailTemplateAIModel = model.startChat({
+    generationConfig,
+    history: [
 
-        ],
-    });
+    ],
+});
 
     // const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
     // console.log(result.response.text());

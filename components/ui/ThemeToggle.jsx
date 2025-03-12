@@ -15,7 +15,6 @@ const ThemeToggle = () => {
     }
     return (
         <>
-            <Toaster position="top-right" reverseOrder={false} /> {/*pauseOnHover={true}*/}
             <button
                 onClick={ThemeHandler}
                 className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full transition-all"

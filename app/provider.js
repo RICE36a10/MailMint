@@ -2,11 +2,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { UserDetailContext } from "@/context/UserDetailContext";
 import ScreenSizeContext from "../context/ScreenSizeContext";
 import { DragDropLayoutContext } from "@/context/DragDropLayoutElement";
 import { EmailTemplateContext } from "@/context/EmailTemplateContext";
 import { SelectedElementContext } from "@/context/SelectedElement";
+import {UserDetailContext} from "@/context/UserDetailContext"
 import { ThemeProvider } from "next-themes";
 function Provider({ children }) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);

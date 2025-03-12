@@ -108,7 +108,7 @@ export default [
         icon: PanelTop,
         type: "LogoHeader",
         label: "Logo Header",
-        imageUrl: "/logo.svg",
+        imageUrl: "/icon.png",
         alt: "logo",
         url: "#",
         style: {
