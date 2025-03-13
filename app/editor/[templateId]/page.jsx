@@ -23,6 +23,7 @@ function editor() {
     useEffect(() => {
         if (userDetail) {
             console.log("Fetching template data...");
+            console.log(templateId);
             GetTemplateData();
         } else {
             console.log("userDetail is undefined or null");
@@ -32,14 +33,18 @@ function editor() {
 
     const GetTemplateData = async () => {
         try {
+            if(!userDetail.email) {
+                return;
+            }
             setLoading(true);
+            console.log(userDetail, 'hehehehehe');
             const result = await convex.query(api.emailTemplate.GetTemplateDesign, {
                 tid: templateId,
                 email: userDetail.email,
             });
             console.log(result, "GetTemplateData");
             console.log(emailTemplate);
-            setEmailTemplate(JSON.parse(result?.design || "[]"));
+            setEmailTemplate(result?.design);
             setLoading(false);
         } catch (error) {
             console.error("Error fetching template data:", error);

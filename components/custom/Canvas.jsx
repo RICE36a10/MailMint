@@ -59,9 +59,9 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
 
 
     useEffect(() => {
-        console.log("agdsgdufauyjfds",emailTemplate?.design);
-        console.log("agdsgdufauyjfds",typeof(emailTemplate?.design));
-        console.log("agdsgdufauyjfds",typeof(emailTemplate));
+        console.log("email template design",emailTemplate?.design);
+        console.log("type of design ",typeof(emailTemplate?.design));
+        console.log("type of email template",typeof(emailTemplate));
     }, [emailTemplate]);
 
     const [TempTemplate, setTempTemplate] = useState([]);
@@ -81,17 +81,19 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
                     onDrop={onDropHandler}
                     ref={htmlref}
                 >
-                    {emailTemplate.length > 0 ? (
+                    {
+                        emailTemplate.length > 0 ? (
                         <>
                             {emailTemplate.map((layout, index) => (
                                 <div key={index}>{getLayoutComponent(layout) || "Empty Component"}</div>
                             ))}
                         </>
-                    ) : (
-                        <p className={' flex justify-center items-center bg-gray-100 h-[400px] text-2xl'}>Template Empty or Not Found
-                            <FontAwesomeIcon className={'ml-2'} icon={faBan} />
-                        </p>
-                    )}
+                            ) : (
+                                <p className={' flex justify-center items-center bg-gray-100 h-[400px] text-2xl'}>Template Empty or Not Found
+                                    <FontAwesomeIcon className={'ml-2'} icon={faBan} />
+                                </p>
+                            )
+                    }
 
 
                     {/*{emailTemplate?.length > 0 ? (*/}

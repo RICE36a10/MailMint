@@ -16,16 +16,23 @@ import {toast, Toaster} from "react-hot-toast";
 export const EditorHeader = ({ viewHtmlCode }) => {
     const { ScreenSize, setScreenSize } = useScreenSize();
     console.log(ScreenSize);
-
-    const UpdateTemplate = useMutation(api.emailTemplate.UpdateTemplateDesign)
     const {templateId} = useParams();
     const {emailTemplate, setEmailTemplate} = useEmailTemplate();
 
+
+    const UpdateTemplate = useMutation(api.emailTemplate.UpdateTemplateDesign)
     const onSaveTemplate = async () => {
+        // await UpdateTemplate({
+        //     tid: templateId,
+        //     design: emailTemplate,
+        // })
+        const jsonTemplate = JSON.parse(JSON.stringify(emailTemplate)); // Ensure it's JSON-compatible
+
         await UpdateTemplate({
             tid: templateId,
-            design: emailTemplate,
-        })
+            design: jsonTemplate,
+        });
+
         toast.success("Template saved successfully.");
     }
 

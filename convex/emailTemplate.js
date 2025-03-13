@@ -14,7 +14,7 @@ export const SaveTemplate = mutation({
                 tid: args?.tid,
                 design: args?.design,
                 email: args?.email,
-                description: args.description,
+                description: args?.description,
             });
         } catch (e) {
             console.log(e);
@@ -53,13 +53,14 @@ export const UpdateTemplateDesign  = mutation({
     handler: async (ctx, args) => {
         // get doc id
         const result = await ctx.db.query('emailTemplates')
-            .filter(q=>q.eq(q.field("tid"),args.tid)).collect();
+            .filter(q=>q.eq(q.field("tid"),args?.tid)).collect();
 
+        console.log("i am in UpdateTemplateDesign this is full result", result);
         const docID = result[0]._id;
         console.log(docID);
         // update that docId
         await ctx.db.patch(docID,{
-            design: args.design,
+            design: args?.design,
         })
     }
 })
