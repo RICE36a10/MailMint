@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CodeSquare, Code, Monitor, Smartphone } from "lucide-react";
@@ -35,6 +35,22 @@ export const EditorHeader = ({ viewHtmlCode }) => {
 
         toast.success("Template saved successfully.");
     }
+
+    useEffect(() => {
+        async function saveTemplate() {
+            const jsonTemplate = JSON.parse(JSON.stringify(emailTemplate)); // Ensure it's JSON-compatible
+
+            await UpdateTemplate({
+                tid: templateId,
+                design: jsonTemplate,
+            });
+        }
+
+        saveTemplate(); // Call the async function inside useEffect
+    }, [emailTemplate]); // Dependency array
+
+
+
 
 
     return (

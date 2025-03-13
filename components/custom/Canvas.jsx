@@ -82,7 +82,7 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
                     ref={htmlref}
                 >
                     {
-                        emailTemplate.length > 0 ? (
+                        emailTemplate.length >= 0 ? (
                         <>
                             {emailTemplate.map((layout, index) => (
                                 <div key={index}>{getLayoutComponent(layout) || "Empty Component"}</div>
@@ -94,7 +94,6 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
                                 </p>
                             )
                     }
-
 
                     {/*{emailTemplate?.length > 0 ? (*/}
                     {/*    emailTemplate.map((layout, index) => (*/}
