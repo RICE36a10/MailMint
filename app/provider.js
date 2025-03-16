@@ -16,34 +16,8 @@ function Provider({ children }) {
     const [SelectedElement, setSelectedElement] = useState();
 
 
-    const [emailTemplate, setEmailTemplate] = useState(() => {
-        if (typeof window !== "undefined") {
-            try {
-                const storedData = localStorage.getItem("emailTemplate");
-                const parsedData = storedData ? JSON.parse(storedData) : [];
-                return Array.isArray(parsedData) ? parsedData : [];
-            } catch (error) {
-                console.error("Error parsing localStorage:", error);
-                return [];
-            }
-        }
-        return [];
-    });
 
-
-    // const [emailTemplate, setEmailTemplate] = useState(() => {
-    //     if (typeof window !== "undefined") {
-    //         try {
-    //             return JSON.parse(localStorage.getItem("emailTemplate")) ?? [];
-    //         } catch (error) {
-    //             console.error("Error parsing localStorage:", error);
-    //             return [];
-    //         }
-    //     }
-    //     return [];
-    // });
-
-
+    
     useEffect(() => {
         if (typeof window !== "undefined") {
             const storage = JSON.parse(localStorage.getItem("userDetail"));
