@@ -36,7 +36,7 @@ export const GetTemplateDesign = query({
                     q.eq(q.field("email"), args?.email))
                 )
                 .collect();
-            return result[0];
+            return result[0] || {};
         } catch (e) {
             console.log("etem");
             console.log(e);

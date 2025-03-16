@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import { useSelectedElement } from "@/app/provider";
+import {useEmailTemplate, useSelectedElement} from "@/app/provider";
 import { InputField } from "@/components/custom/Settings/InputField";
 import { ColourPickerField } from "@/components/custom/Settings/ColourPickerField";
 import { InputStyleField } from "@/components/custom/Settings/InputStyleField";
@@ -18,15 +18,64 @@ import {
 } from "lucide-react";
 import { DropdownField } from "@/components/custom/Settings/DropdownField";
 import { ImagePreview } from "@/components/custom/Settings/ImagePreview";
+import { isEqual } from "lodash";
 
 export default function Settings() {
     const { SelectedElement, setSelectedElement } = useSelectedElement();
     const [element, setElement] = useState();
+    const { emailTemplate, setEmailTemplate } = useEmailTemplate();
 
+    // useEffect(() => {
+    //     console.log(SelectedElement?.layout?.[SelectedElement?.index]);
+    //     setElement(SelectedElement?.layout?.[SelectedElement?.index]);
+    // }, [SelectedElement]);
+
+    // major change
     useEffect(() => {
-        console.log(SelectedElement?.layout?.[SelectedElement?.index]);
-        setElement(SelectedElement?.layout?.[SelectedElement?.index]);
+        const layout = SelectedElement?.layout?.[SelectedElement?.index];
+        console.log("Layout:", layout); // Debug: check if layout is defined
+        if (layout) {
+            setElement({
+                ...layout,
+                style: {
+                    ...layout.style,
+                    fontSize: layout.style?.fontSize || "16px",
+                    padding: layout.style?.padding || "10px",
+                    width: layout.style?.width || "100%",
+                    borderRadius: layout.style?.borderRadius || "0px",
+                    textAlign: layout.style?.textAlign || "left", // Default to 'left'
+                },
+                outerStyle: {
+                    ...layout.outerStyle,
+                    justifyContent: layout.outerStyle?.justifyContent || "flex-start", // Default to 'flex-start'
+                },
+                textarea: layout.textarea !== undefined ? layout.textarea : "",
+            });
+        }
     }, [SelectedElement]);
+
+    // major change
+    useEffect(() => {
+        if (SelectedElement && emailTemplate) {
+            let updatedEmailTemplates = [];
+            let hasChanged = false;
+            emailTemplate.forEach((item) => {
+                if (item.id === SelectedElement?.layout?.id) {
+                    if (!isEqual(item, SelectedElement?.layout)) {
+                        updatedEmailTemplates.push(SelectedElement?.layout);
+                        hasChanged = true;
+                    } else {
+                        updatedEmailTemplates.push(item);
+                    }
+                } else {
+                    updatedEmailTemplates.push(item);
+                }
+            });
+            if (hasChanged) {
+                setEmailTemplate(updatedEmailTemplates);
+            }
+        }
+    }, [SelectedElement, emailTemplate]);
 
     const onHandleInputChange = (fieldName, value) => {
         console.log(fieldName, "value" + value);

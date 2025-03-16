@@ -15,6 +15,7 @@ import {toast, Toaster} from "react-hot-toast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBan, faFaceSadTear} from "@fortawesome/free-solid-svg-icons";
 export function Canvas({ viewHtmlCode, closeDialog }) {
+    const htmlref = useRef();
     const { ScreenSize, setScreenSize } = useScreenSize();
     const { DragElementLayout, setDragElementLayout } = useDragDropLayout();
     const { emailTemplate, setEmailTemplate } = useEmailTemplate();
@@ -36,13 +37,16 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
     };
 
     const getLayoutComponent = (layout) => {
-        if (layout?.type === "column") {
+        if (layout?.type == "column") {
             return <ColumnLayout layout={layout} />;
         }
-        return null;
+        // return null;
     };
 
-    const htmlref = useRef(null);
+
+    useEffect(() => {
+        viewHtmlCode && GetHtmlCode();
+    }, [viewHtmlCode]);
 
     const GetHtmlCode = () => {
         if (htmlref.current) {
@@ -53,16 +57,11 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
         }
     };
 
-    useEffect(() => {
-        viewHtmlCode && GetHtmlCode();
-    }, [viewHtmlCode]);
-
-
-    useEffect(() => {
-        console.log("email template design",emailTemplate?.design);
-        console.log("type of design ",typeof(emailTemplate?.design));
-        console.log("type of email template",typeof(emailTemplate));
-    }, [emailTemplate]);
+    // useEffect(() => {
+    //     console.log("email template design",emailTemplate?.design);
+    //     console.log("type of design ",typeof(emailTemplate?.design));
+    //     console.log("type of email template in canvas",typeof(emailTemplate), emailTemplate);
+    // }, [emailTemplate]);
 
     const [TempTemplate, setTempTemplate] = useState([]);
 
@@ -78,21 +77,21 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
                     ${ScreenSize === "desktop" ? "max-w-2xl" : "max-w-lg"} 
                     ${dragOver ? "bg-purple-100 p-4" : ""}`}
                     onDragOver={onDragOver}
-                    onDrop={onDropHandler}
+                    onDrop={() => onDropHandler()}
                     ref={htmlref}
                 >
                     {
                         emailTemplate.length >= 0 ? (
-                        <>
-                            {emailTemplate.map((layout, index) => (
-                                <div key={index}>{getLayoutComponent(layout) || "Empty Component"}</div>
-                            ))}
-                        </>
-                            ) : (
-                                <p className={' flex justify-center items-center bg-gray-100 h-[400px] text-2xl'}>Template Empty or Not Found
-                                    <FontAwesomeIcon className={'ml-2'} icon={faBan} />
-                                </p>
-                            )
+                            <>
+                                {emailTemplate.map((layout, index) => (
+                                    <div key={index}>{getLayoutComponent(layout) || "Empty Component"}</div>
+                                ))}
+                            </>
+                        ) : (
+                            <p className={' flex justify-center items-center bg-gray-100 h-[400px] text-2xl'}>Template Empty or Not Found
+                                <FontAwesomeIcon className={'ml-2'} icon={faBan} />
+                            </p>
+                        )
                     }
 
                     {/*{emailTemplate?.length > 0 ? (*/}

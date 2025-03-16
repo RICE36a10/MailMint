@@ -13,12 +13,12 @@ import Link from "next/link";
 
 function editor() {
     const [viewHtmlCode, setViewHtmlCode] = useState();
-
     const {templateId} = useParams();
     const {userDetail, setUserDetail} = useUserDetail();
     const convex = useConvex();
     const {emailTemplate, setEmailTemplate} = useEmailTemplate();
     const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
         if (userDetail) {
@@ -40,35 +40,41 @@ function editor() {
             console.log(userDetail, 'hehehehehe');
             const result = await convex.query(api.emailTemplate.GetTemplateDesign, {
                 tid: templateId,
-                email: userDetail.email,
+                email: userDetail?.email,
             });
             console.log(result, "GetTemplateData");
-            console.log(emailTemplate);
             setEmailTemplate(result?.design);
+            console.log(emailTemplate);
             setLoading(false);
         } catch (error) {
-            console.error("Error fetching template data:", error);
+            console.error("Error fetching template data in /editor/page.jsx :", error);
         }
     };
+
+    // useEffect(() => {
+    //     console.log(typeof(emailTemplate), emailTemplate);
+    // }, [emailTemplate]);
 
     return (
         <div>
             <EditorHeader viewHtmlCode={(v) => setViewHtmlCode(v)} />
             { !loading ? <div className={"grid grid-cols-5"}>
-                <ElementsSideBar/>
-                <div className={"col-span-3 bg-gray-100"}>
-                    <Canvas
-                        viewHtmlCode={viewHtmlCode}
-                        closeDialog={() => setViewHtmlCode(false)}
-                    />
+                    <ElementsSideBar/>
+                    <div className={"col-span-3 bg-gray-100"}>
+                        <Canvas
+                            viewHtmlCode={viewHtmlCode}
+                            closeDialog={() => setViewHtmlCode(false)}
+                        />
+                    </div>
+                    <Settings/>
                 </div>
-                <Settings/>
-            </div>
                 :
                 <div>
                     <h2>please wait</h2>
                 </div>
             }
+
+
         </div>
     );
 }

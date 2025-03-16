@@ -15,41 +15,45 @@ import {toast, Toaster} from "react-hot-toast";
 
 export const EditorHeader = ({ viewHtmlCode }) => {
     const { ScreenSize, setScreenSize } = useScreenSize();
-    console.log(ScreenSize);
     const {templateId} = useParams();
     const {emailTemplate, setEmailTemplate} = useEmailTemplate();
+    const UpdateTemplate = useMutation(api.emailTemplate.UpdateTemplateDesign);
 
+    // major change
+    // const onSaveTemplate = async () => {
+    //     // await UpdateTemplate({
+    //     //     tid: templateId,
+    //     //     design: emailTemplate,
+    //     // })
+    //     const jsonTemplate = JSON.parse(JSON.stringify(emailTemplate)); // Ensure it's JSON-compatible
+    //
+    //     await UpdateTemplate({
+    //         tid: templateId,
+    //         design: jsonTemplate,
+    //     });
+    //
+    //     toast.success("Template saved successfully.");
+    // }
+    // useEffect(() => {
+    //     async function saveTemplate() {
+    //         const jsonTemplate = JSON.parse(JSON.stringify(emailTemplate)); // Ensure it's JSON-compatible
+    //
+    //         await UpdateTemplate({
+    //             tid: templateId,
+    //             design: jsonTemplate,
+    //         });
+    //     }
+    //
+    //     saveTemplate(); // Call the async function inside useEffect
+    // }, [emailTemplate]); // Dependency array
 
-    const UpdateTemplate = useMutation(api.emailTemplate.UpdateTemplateDesign)
     const onSaveTemplate = async () => {
-        // await UpdateTemplate({
-        //     tid: templateId,
-        //     design: emailTemplate,
-        // })
-        const jsonTemplate = JSON.parse(JSON.stringify(emailTemplate)); // Ensure it's JSON-compatible
-
         await UpdateTemplate({
             tid: templateId,
-            design: jsonTemplate,
+            design: emailTemplate,
         });
-
-        toast.success("Template saved successfully.");
-    }
-
-    useEffect(() => {
-        async function saveTemplate() {
-            const jsonTemplate = JSON.parse(JSON.stringify(emailTemplate)); // Ensure it's JSON-compatible
-
-            await UpdateTemplate({
-                tid: templateId,
-                design: jsonTemplate,
-            });
-        }
-
-        saveTemplate(); // Call the async function inside useEffect
-    }, [emailTemplate]); // Dependency array
-
-
+        toast("Email Template Saved Successfully!");
+    };
 
 
 
@@ -103,7 +107,12 @@ export const EditorHeader = ({ viewHtmlCode }) => {
                 >
                     <Code />
                 </Button>
-                <Button variant={"outline"}>send test email</Button>
+                {/*// try sending email will show a dialogue box*/}
+                {/*// crossing will remove it*/}
+
+                {/*// now that dialogue box will have a send email button*/}
+                {/*// and an input box for ',' separated values for sending email*/}
+                <Button variant={"outline"} >send test email</Button>
                 <Button onClick={onSaveTemplate} >Save template</Button>
             </div>
         </div>

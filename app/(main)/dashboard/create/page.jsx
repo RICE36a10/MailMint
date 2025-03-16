@@ -1,11 +1,9 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import AI from "../../../../public/ai.svg"
 import {Sparkles} from "lucide-react";
 import {AIinputBox} from "@/components/custom/AIinputBox";
 
 export default function Create() {
-
     return (
         <div className={'px-10 md:px-28 lg:px-64 xl:px-72 mt-20 '}>
             <div className={'flex flex-col items-center '}>
@@ -25,7 +23,20 @@ export default function Create() {
                         <AIinputBox/>
                     </TabsContent>
                     <TabsContent value="Scratch">
-                        Karle khud fir
+                        <div className={' ml-16 mt-10'}>
+                            {/*
+
+                                todo manually
+
+                                keep a button for start now
+                                create a new id in a table
+                                forward to the editor directly
+                                from here
+                                route + tid
+
+                            */}
+                            Coming soon
+                        </div>
                     </TabsContent>
                 </Tabs>
 

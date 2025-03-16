@@ -49,29 +49,29 @@ function EmailTemplateList() {
         <div>
             <h2 className={"font-bold text-xl text-primary mt-6 "}>workspace</h2>
             {emailList?.length === 0 ? (
-                <div className={"flex justify-center mt-7 flex-col items-center  "}>
-                    <Image
-                        src={"/landing.png"}
-                        alt={"temp"}
-                        height={250}
-                        width={250}
-                    />
-                    <Link href={'/dashboard/create'}>
-                        <Button className={"mt-7"}>+ create new</Button>
-                    </Link>
-                </div>
-            )
-            :
+                    <div className={"flex justify-center mt-7 flex-col items-center  "}>
+                        <Image
+                            src={"/landing.png"}
+                            alt={"temp"}
+                            height={250}
+                            width={250}
+                        />
+                        <Link href={'/dashboard/create'}>
+                            <Button className={"mt-7"}>+ create new</Button>
+                        </Link>
+                    </div>
+                )
+                :
                 <div className={'grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6'}>
                     {emailList?.map((item, index) => (
                         <div key={index} className={'p-2 rounded-lg shadow-md p-5 border '}>
                             <Image src={'/emailbox.png'} className={'mt-2'} width={200} height={200} alt={'email'}/>
-                                <h2>{item?.description}</h2>
-                                <Link href={'/editor/'+item?.tid}>
-                                    <Button className={' mt-2 w-full '}>View/Edit</Button>
-                                </Link>
+                            <h2>{item?.description}</h2>
+                            <Link href={'/editor/'+item?.tid}>
+                                <Button className={' mt-2 w-full '}>View/Edit</Button>
+                            </Link>
                         </div>
-                        ))
+                    ))
                     }
                 </div>
             }

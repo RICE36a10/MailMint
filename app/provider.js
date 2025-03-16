@@ -10,63 +10,62 @@ import {UserDetailContext} from "@/context/UserDetailContext"
 import { ThemeProvider } from "next-themes";
 function Provider({ children }) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
-    const [userDetail, setUserDetail] = useState({});
+    const [userDetail, setUserDetail] = useState(null);
     const [ScreenSize, setScreenSize] = useState("desktop");
-    const [DragElementLayout, setDragElementLayout] = useState({});
+    const [DragElementLayout, setDragElementLayout] = useState(null);
     const [SelectedElement, setSelectedElement] = useState();
+    const [emailTemplate, setEmailTemplate] = useState([]);
 
 
 
-    
     useEffect(() => {
         if (typeof window !== "undefined") {
-            const storage = JSON.parse(localStorage.getItem("userDetail"));
-            if (storage?.email && storage) {
-                setUserDetail(storage);
+            // Safely parse userDetail from localStorage
+            const userDetailStorage = localStorage.getItem("userDetail");
+            if (userDetailStorage) {
+                try {
+                    const parsedUserDetail = JSON.parse(userDetailStorage);
+                    if (!parsedUserDetail?.email || !parsedUserDetail) {
+                        console.log("No valid user detail found in localStorage");
+                    } else {
+                        setUserDetail(parsedUserDetail);
+                    }
+                } catch (error) {
+                    console.error("Failed to parse userDetail from localStorage:", error);
+                }
             } else {
-                console.error("No email found in local storage");
+                console.log("No userDetail found in localStorage");
+            }
+
+            // Safely parse emailTemplate from localStorage
+            const emailTemplateStorage = localStorage.getItem("emailTemplate");
+            if (emailTemplateStorage) {
+                try {
+                    const parsedEmailTemplate = JSON.parse(emailTemplateStorage);
+                    // Ensure parsed value is an array
+                    if (Array.isArray(parsedEmailTemplate)) {
+                        setEmailTemplate(parsedEmailTemplate);
+                    } else {
+                        console.error(
+                            "Invalid emailTemplate format, resetting to empty array"
+                        );
+                        setEmailTemplate([]);
+                    }
+                } catch (error) {
+                    console.error("Failed to parse emailTemplate:", error);
+                    setEmailTemplate([]); // Fallback to empty array
+                }
+            } else {
+                setEmailTemplate([]); // Fallback to an empty array
             }
         }
     }, []);
-
-
-    useEffect(() => {
-        console.log("Current ScreenSize:", ScreenSize);
-    }, [ScreenSize]);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
             localStorage.setItem("emailTemplate", JSON.stringify(emailTemplate));
         }
     }, [emailTemplate]);
-
-    useEffect(() => {
-        if (typeof window !== undefined) {
-            const storage = JSON.parse(localStorage.getItem("userDetail"));
-            if (storage?.email) {
-                setUserDetail(storage);
-            }
-        }
-    }, []);
-
-    useEffect(() => {
-        console.log("Updated Email Template:", emailTemplate);
-    }, [emailTemplate]);
-
-
-    useEffect(() => {
-        if (SelectedElement) {
-            let updatedEmailTemplate = [];
-            emailTemplate.forEach((item, index) => {
-                if (item.id === SelectedElement?.layout?.id) {
-                    updatedEmailTemplate?.push(SelectedElement?.layout);
-                } else {
-                    updatedEmailTemplate?.push(item);
-                }
-            });
-            setEmailTemplate(updatedEmailTemplate);
-        }
-    }, [SelectedElement]);
 
     return (
         <ThemeProvider attribute="class">
