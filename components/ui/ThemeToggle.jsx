@@ -1,6 +1,5 @@
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
-import {toast, Toaster} from "react-hot-toast";
 import React from "react";
 
 const ThemeToggle = () => {

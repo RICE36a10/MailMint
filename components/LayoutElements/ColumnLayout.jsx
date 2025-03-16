@@ -13,7 +13,6 @@ import { LogoHeaderComponent } from "@/components/Element/LogoHeaderComponent";
 import { SocialIconsComponent } from "@/components/Element/SocialIconsComponent";
 import { DividerComponent } from "@/components/Element/DividerComponent";
 import { ArrowDown, ArrowUp, Trash } from "lucide-react";
-import {toast, Toaster} from "react-hot-toast";
 
 export function ColumnLayout({ layout }) {
     const [dragOver, setDragOver] = useState();
@@ -44,7 +43,6 @@ export function ColumnLayout({ layout }) {
         );
         setDragOver(null);
         console.log(emailTemplate);
-        toast.success("Element added");
         console.log("tapka dia");
     };
 
@@ -118,7 +116,6 @@ export function ColumnLayout({ layout }) {
 
     return (
         <div className={"relative"}>
-            <Toaster position="top-right" reverseOrder={false} />
             <div
                 style={{
                     display: "grid",

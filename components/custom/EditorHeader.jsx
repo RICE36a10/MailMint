@@ -11,7 +11,6 @@ import {UpdateTemplateDesign} from "@/convex/emailTemplate";
 import {api} from "@/convex/_generated/api";
 import {useParams} from "next/navigation";
 import {EmailTemplateContext} from "@/context/EmailTemplateContext";
-import {toast, Toaster} from "react-hot-toast";
 
 export const EditorHeader = ({ viewHtmlCode }) => {
     const { ScreenSize, setScreenSize } = useScreenSize();
@@ -59,7 +58,6 @@ export const EditorHeader = ({ viewHtmlCode }) => {
 
     return (
         <div className={"p-3 shadow-sm  flex justify-between items-center border "}>
-            <Toaster position="bottom-right" reverseOrder={false} />
             <Link href={'/dashboard'}>
                 <div className={'flex gap-4'}>
                     <Image src={"/logo.svg"} alt={"editor header"} width={50} height={70} className={'bg-red-100 ml-10 scale-125 border rounded-sm   '}/>

@@ -8,7 +8,6 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Copy } from "lucide-react";
-import { toast, Toaster } from "react-hot-toast";
 export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog}) {
     const [isCopied, setIsCopied] = useState(false);
 
@@ -21,7 +20,6 @@ export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog}) {
                 setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
             })
             .catch((err) => {
-                toast.error("Failed to copy. Please try again!");
                 console.error("Failed to copy: ", err);
             });
     };

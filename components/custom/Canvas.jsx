@@ -9,8 +9,6 @@ import layout from "@/Data/Layout";
 import { ColumnLayout } from "@/components/LayoutElements/ColumnLayout";
 import Layout from "@/Data/Layout";
 import { ViewHtmlDialog } from "@/components/custom/ViewHtmlDialog";
-import {toast, Toaster} from "react-hot-toast";
-
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBan, faFaceSadTear} from "@fortawesome/free-solid-svg-icons";
