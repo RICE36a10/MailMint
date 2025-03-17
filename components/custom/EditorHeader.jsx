@@ -110,7 +110,9 @@ export const EditorHeader = ({ viewHtmlCode }) => {
 
                 {/*// now that dialogue box will have a send email button*/}
                 {/*// and an input box for ',' separated values for sending email*/}
-                <Button variant={"outline"} >send test email</Button>
+                <div>
+                    <SendEmail/>
+                </div>
                 <Button onClick={onSaveTemplate} >Save template</Button>
             </div>
         </div>
