@@ -1,15 +1,17 @@
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 import React from "react";
+import { toast } from "sonner"
+
 
 const ThemeToggle = () => {
     const { theme, setTheme } = useTheme();
     const ThemeHandler = () => {
         setTheme(theme === "dark" ? "light" : "dark")
         if(theme === "light"){
-            toast.success("Set to Dark Theme");
+            toast("Set to Dark Theme");
         } else {
-            toast.success("Set to Light Theme");
+            toast("Set to Light Theme");
         }
     }
     return (

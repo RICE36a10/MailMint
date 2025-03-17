@@ -7,7 +7,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { Copy } from "lucide-react";
+import { toast } from "sonner"
+import { Copy, Check } from "lucide-react";
 export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog}) {
     const [isCopied, setIsCopied] = useState(false);
 
@@ -16,8 +17,8 @@ export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog}) {
             .writeText(htmlCode)
             .then(() => {
                 setIsCopied(true);
-                toast.success("Copied to Clipboard!");
-                setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+                toast("Copied to Clipboard!");
+                setTimeout(() => setIsCopied(false), 1200); // Reset after 2 seconds
             })
             .catch((err) => {
                 console.error("Failed to copy: ", err);

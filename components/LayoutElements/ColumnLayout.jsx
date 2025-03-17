@@ -13,6 +13,8 @@ import { LogoHeaderComponent } from "@/components/Element/LogoHeaderComponent";
 import { SocialIconsComponent } from "@/components/Element/SocialIconsComponent";
 import { DividerComponent } from "@/components/Element/DividerComponent";
 import { ArrowDown, ArrowUp, Trash } from "lucide-react";
+import { toast } from "sonner"
+
 
 export function ColumnLayout({ layout }) {
     const [dragOver, setDragOver] = useState();
@@ -52,7 +54,7 @@ export function ColumnLayout({ layout }) {
         );
         setEmailTemplate(updateEmailTemplate);
         setSelectedElement(null);
-        toast.success("Item Deleted");
+        toast("Item Deleted");
     };
 
 
@@ -66,7 +68,7 @@ export function ColumnLayout({ layout }) {
             ];
 
             setEmailTemplate(updateItems); // State update
-            toast.success("Item Moved Up"); // Toast outside state update
+            toast("Item Moved Up"); // Toast outside state update
             return updateItems;
         }
     };
@@ -90,7 +92,7 @@ export function ColumnLayout({ layout }) {
         });
 
         if (moved) {
-            toast.success("Item Moved Down");
+            toast("Item Moved Down");
         }
     };
 

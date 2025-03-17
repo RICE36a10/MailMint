@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
-export function SignInButton() {
+export function SignInButton({Messege}) {
     const CreateUser = useMutation(api.users.CreateUser);
 
     const googleLogin = useGoogleLogin({
@@ -49,7 +49,7 @@ export function SignInButton() {
 
     return (
         <div>
-            <Button onClick={() => googleLogin()}>Get Started</Button>
+            <Button onClick={() => googleLogin()}>{Messege}</Button>
         </div>
     );
 }

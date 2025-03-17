@@ -30,7 +30,7 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
         console.log(DragElementLayout?.dragLayout, "helllo ");
         if (DragElementLayout?.dragLayout) {
             setEmailTemplate((prev) => [...prev, DragElementLayout?.dragLayout]);
-            toast.success("New Set of Column Added");
+            toast("New Set of Column Added");
         }
     };
 

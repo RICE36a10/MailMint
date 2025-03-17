@@ -6,6 +6,7 @@ import { SignInButton } from "@/components/custom/SignInButton";
 // import { useUserDetail } from "@/provider";
 import { useUserDetail } from "@/app/provider";
 import Link from "next/link";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export const Header = () => {
     const { userDetail } = useUserDetail();
@@ -14,10 +15,12 @@ export const Header = () => {
 
     return (
         <div className="flex justify-between items-center p-4 shadow-sm px-10">
-            <Image src="/logo.svg" alt="logo" width={50} height={70} className={'bg-red-100 ml-10 scale-125 border rounded-sm   '} />
+            <Image src="/logo.svg" alt="logo" width={50} height={70} className={' ml-10 scale-125  rounded-sm   '} />
             <div>
-                {userDetail?.email ? (
+                {
+                    userDetail?.email ? (
                     <div className="flex gap-3 items-center">
+                        <ThemeToggle />
                         <Link href={"/dashboard"}>
                             <Button>Dashboard</Button>
                         </Link>
@@ -30,7 +33,10 @@ export const Header = () => {
                         />
                     </div>
                 ) : (
-                    <SignInButton />
+                        <div className="flex gap-3 items-center">
+                            <ThemeToggle />
+                            <SignInButton Messege={"Get Started"} />
+                        </div>
                 )}
             </div>
         </div>
