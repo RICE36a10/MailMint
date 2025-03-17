@@ -15,8 +15,7 @@ function Provider({ children }) {
     const [DragElementLayout, setDragElementLayout] = useState(null);
     const [SelectedElement, setSelectedElement] = useState();
     const [emailTemplate, setEmailTemplate] = useState([]);
-
-
+    const [htmlCode, setHtmlCode] = useState("");
 
     useEffect(() => {
         if (typeof window !== "undefined") {
