@@ -8,6 +8,7 @@ import { EmailTemplateContext } from "@/context/EmailTemplateContext";
 import { SelectedElementContext } from "@/context/SelectedElement";
 import {UserDetailContext} from "@/context/UserDetailContext"
 import { ThemeProvider } from "next-themes";
+import {HtmlCodeContext} from "@/context/HtmlCodeContext";
 function Provider({ children }) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
     const [userDetail, setUserDetail] = useState(null);
@@ -81,7 +82,10 @@ function Provider({ children }) {
                                     <SelectedElementContext.Provider
                                         value={{ SelectedElement, setSelectedElement }}
                                     >
-                                        <div>{children}</div>
+                                        <HtmlCodeContext.Provider
+                                        value={{ htmlCode, setHtmlCode }}>
+                                            <div>{children}</div>
+                                        </HtmlCodeContext.Provider>
                                     </SelectedElementContext.Provider>
                                 </EmailTemplateContext.Provider>
                             </DragDropLayoutContext.Provider>
@@ -109,4 +113,7 @@ export const useEmailTemplate = () => {
 };
 export const useSelectedElement = () => {
     return useContext(SelectedElementContext);
+};
+export const useHtmlCode = () => {
+    return useContext(HtmlCodeContext);
 };

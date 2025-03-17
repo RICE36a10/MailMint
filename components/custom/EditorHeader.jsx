@@ -11,6 +11,7 @@ import {UpdateTemplateDesign} from "@/convex/emailTemplate";
 import {api} from "@/convex/_generated/api";
 import {useParams} from "next/navigation";
 import {EmailTemplateContext} from "@/context/EmailTemplateContext";
+import SendEmail from "@/components/custom/SendEmail";
 
 export const EditorHeader = ({ viewHtmlCode }) => {
     const { ScreenSize, setScreenSize } = useScreenSize();
@@ -18,33 +19,6 @@ export const EditorHeader = ({ viewHtmlCode }) => {
     const {emailTemplate, setEmailTemplate} = useEmailTemplate();
     const UpdateTemplate = useMutation(api.emailTemplate.UpdateTemplateDesign);
 
-    // major change
-    // const onSaveTemplate = async () => {
-    //     // await UpdateTemplate({
-    //     //     tid: templateId,
-    //     //     design: emailTemplate,
-    //     // })
-    //     const jsonTemplate = JSON.parse(JSON.stringify(emailTemplate)); // Ensure it's JSON-compatible
-    //
-    //     await UpdateTemplate({
-    //         tid: templateId,
-    //         design: jsonTemplate,
-    //     });
-    //
-    //     toast.success("Template saved successfully.");
-    // }
-    // useEffect(() => {
-    //     async function saveTemplate() {
-    //         const jsonTemplate = JSON.parse(JSON.stringify(emailTemplate)); // Ensure it's JSON-compatible
-    //
-    //         await UpdateTemplate({
-    //             tid: templateId,
-    //             design: jsonTemplate,
-    //         });
-    //     }
-    //
-    //     saveTemplate(); // Call the async function inside useEffect
-    // }, [emailTemplate]); // Dependency array
 
     const onSaveTemplate = async () => {
         await UpdateTemplate({

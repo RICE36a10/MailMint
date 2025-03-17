@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
     useDragDropLayout,
-    useEmailTemplate,
+    useEmailTemplate, useHtmlCode,
     useScreenSize,
 } from "@/app/provider";
 import layout from "@/Data/Layout";
@@ -18,7 +18,7 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
     const { DragElementLayout, setDragElementLayout } = useDragDropLayout();
     const { emailTemplate, setEmailTemplate } = useEmailTemplate();
     const [dragOver, setDragOver] = useState(false);
-    const [htmlCode, setHtmlCode] = useState("");
+    const {htmlCode, setHtmlCode} = useHtmlCode();
 
     const onDragOver = (e) => {
         e.preventDefault();
