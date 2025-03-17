@@ -26,41 +26,6 @@ export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog}) {
 
     return (
         <>
-
-            {/*<Dialog open={openDialog} onOpenChange={closeDialog}>*/}
-            {/*    <DialogContent>*/}
-            {/*        <DialogHeader>*/}
-            {/*            <DialogTitle asChild>*/}
-            {/*                <div className={"flex justify-between items-center p-2"}>*/}
-            {/*                    <h2 className={'flex gap-2'}>*/}
-            {/*                        Html Email Template{" "}*/}
-            {/*                        <div className={'hover:scale-[1.6] transition-all cursor-pointer'}>*/}
-            {/*                            🚀*/}
-            {/*                        </div>*/}
-
-            {/*                    </h2>*/}
-            {/*                    <Copy*/}
-            {/*                        className={*/}
-            {/*                            "p-1 bg-gray-200 rounded-lg h-8 w-8 mr-5 hover:bg-red-200 hover:accent-red-500 transition-all hover:scale-110 cursor-pointer  "*/}
-            {/*                        }*/}
-            {/*                        onClick={copyCode}*/}
-            {/*                    />*/}
-            {/*                </div>*/}
-            {/*            </DialogTitle>*/}
-            {/*            <DialogDescription asChild>*/}
-            {/*                <div*/}
-            {/*                    className={*/}
-            {/*                        "max-h-[400px] overflow-auto bg-black rounded-lg p-5"*/}
-            {/*                    }*/}
-            {/*                >*/}
-            {/*    <pre className={"whitespace-pre-wrap break-all"}>*/}
-            {/*      <code>{htmlCode}</code>*/}
-            {/*    </pre>*/}
-            {/*                </div>*/}
-            {/*            </DialogDescription>*/}
-            {/*        </DialogHeader>*/}
-            {/*    </DialogContent>*/}
-            {/*</Dialog>*/}
             <Dialog open={openDialog} onOpenChange={closeDialog}>
                 <DialogContent>
                     <DialogHeader>
