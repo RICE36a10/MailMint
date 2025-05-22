@@ -34,6 +34,22 @@ MailMint is a modern, AI-powered email template builder and management platform.
 
 ---
 
+## 💡 Project Screenshots
+
+<p align="center">
+  <img src="./public/main.png" width="full"/><br><br>
+  <img src="./public/prompt_box.png" width="full"/><br><br>
+  <img src="./public/Prompt_loading.png" width="full"/><br><br>
+  <img src="./public/Hooray_generated.png" width="full"/><br><br>
+  <img src="./public/Edit_options%20for_each%20component.png" width="full"/><br><br>
+  <img src="./public/HTML%20code.png" width="full"/><br><br>
+  <img src="./public/Sending%20Emails.png" width="full"/><br><br>
+  <img src="./public/editor.png" width="full"/>
+</p>
+
+---
+
+
 ## 📁 Project Structure
 
 ```plaintext
@@ -319,12 +335,6 @@ Visit [http://localhost:3000](http://localhost:3000) to view the app.
 - [shadcn/ui](https://ui.shadcn.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Lucide Icons](https://lucide.dev/)
-
----
-
-## 💡 Screenshots
-
-> _Add screenshots or GIFs of your dashboard, editor, and AI generation here for extra polish!_
 
 ---
 
