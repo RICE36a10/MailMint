@@ -34,7 +34,7 @@ export const EditorHeader = ({ viewHtmlCode }) => {
         <div className={"p-3 shadow-sm  flex justify-between items-center border "}>
             <Link href={'/dashboard'}>
                 <div className={'flex gap-4'}>
-                    <Image src={"/logo.svg"} alt={"editor header"} width={50} height={70} className={'bg-red-100 ml-10 scale-125 border rounded-sm   '}/>
+                    <Image src={"/logo.svg"} alt={"editor header"} width={50} height={70} className={'ml-10 scale-125 rounded-sm   '}/>
                     <div className={'flex flex-col text-xl'}>
                         <div className={'text-yellow-500 scale-125'}>
                             M<span className={'text-red-400'}>ail</span>

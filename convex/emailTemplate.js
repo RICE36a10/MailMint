@@ -77,3 +77,19 @@ export const GetAllUserTemplate = query({
             .collect();
     }
 });
+
+
+export const DeleteTemplate = mutation({
+    args: { tid: v.string() }, // ✅ Accept template ID
+    handler: async ({ db }, { tid }) => {
+        try {
+            await db.delete(tid); // ✅ Delete the template from DB
+            return { success: true, message: "Template deleted successfully" };
+        } catch (error) {
+            console.error("Error deleting template:", error);
+            throw new Error("Failed to delete template");
+        }
+    },
+});
+
+

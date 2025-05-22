@@ -7,7 +7,7 @@ import { toast } from "sonner"
 const ThemeToggle = () => {
     const { theme, setTheme } = useTheme();
     const ThemeHandler = () => {
-        setTheme(theme === "dark" ? "light" : "dark")
+        setTheme(theme === "light" ? "dark" : "light")
         if(theme === "light"){
             toast("Set to Dark Theme");
         } else {

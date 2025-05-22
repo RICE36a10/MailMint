@@ -44,7 +44,7 @@ export default function SendEmail() {
             <Dialog>
                 {/* Trigger Button */}
                 <DialogTrigger asChild>
-                    <Button>Try Email Template</Button>
+                    <Button>Try Sending Email</Button>
                 </DialogTrigger>
 
                 {/* Dialog Content */}

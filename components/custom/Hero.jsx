@@ -19,17 +19,21 @@ function Hero() {
             <div className='flex gap-5 mt-6'>
                 {
                     userDetail?.email && (
-                        <Link href={'/dashboard/create'}>
-                            <Button variant ="outline">Try Demo</Button>
-                        </Link>
+                        <div>
+                            <Link href={'/dashboard/create'}>
+                                <Button variant ="outline" className={''}>Get Started</Button>
+                            </Link>
+                        </div>
                     )
                 }
                 {
                     !userDetail?.email && (
-                            <SignInButton Messege={'Try Demo'} />
+                            <>
+                                <SignInButton Messege={'Try Demo'} />
+                                <SignInButton Messege={'Get Started'}/>
+                            </>
                     )
                 }
-                <SignInButton Messege={'Get Started'}/>
             </div>
             <Image src={'/landing.png'} alt='landing' width={1000} height={800} className='mt-12 rounded-xl' />
         </div>
