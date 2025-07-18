@@ -83,7 +83,19 @@ export const DeleteTemplate = mutation({
     args: { tid: v.string() }, // ✅ Accept template ID
     handler: async ({ db }, { tid }) => {
         try {
-            await db.delete(tid); // ✅ Delete the template from DB
+            // Look up the document ID using the provided template id
+            const result = await db
+                .query("emailTemplates")
+                .filter(q => q.eq(q.field("tid"), tid))
+                .collect();
+
+            if (!result.length) {
+                throw new Error("Template not found");
+            }
+
+            const docId = result[0]._id;
+
+            await db.delete(docId); // Delete the template from DB
             return { success: true, message: "Template deleted successfully" };
         } catch (error) {
             console.error("Error deleting template:", error);
