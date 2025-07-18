@@ -1,16 +1,18 @@
 import React from "react";
-import Image from "next/image";
-
 export function ImageComponent({ style, imageUrl, alt, outerStyle }) {
+    const computedStyle = {
+        ...style,
+        backgroundImage: style?.backgroundImageUrl
+            ? `url(${style.backgroundImageUrl})`
+            : undefined,
+        backgroundColor:
+            style?.backgroundImageUrl ? undefined : style?.backgroundColor || "#ffffff",
+    };
+    const width = parseInt(style?.width) || 150;
+    const height = parseInt(style?.height) || 150;
     return (
-        <div>
-            <Image
-                src={imageUrl}
-                style={style}
-                alt={"Image"}
-                width={150} // Explicit width
-                height={150} // Explicit height
-            />
+        <div style={outerStyle}>
+            <img src={imageUrl} style={computedStyle} alt={alt || "Image"} width={width} height={height} />
         </div>
     );
 }
