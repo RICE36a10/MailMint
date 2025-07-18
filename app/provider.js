@@ -7,7 +7,6 @@ import { DragDropLayoutContext } from "@/context/DragDropLayoutElement";
 import { EmailTemplateContext } from "@/context/EmailTemplateContext";
 import { SelectedElementContext } from "@/context/SelectedElement";
 import {UserDetailContext} from "@/context/UserDetailContext"
-import { ThemeProvider } from "next-themes";
 import {HtmlCodeContext} from "@/context/HtmlCodeContext";
 function Provider({ children }) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
@@ -68,9 +67,8 @@ function Provider({ children }) {
     }, [emailTemplate]);
 
     return (
-        <ThemeProvider attribute="class">
-            <ConvexProvider client={convex}>
-                <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+        <ConvexProvider client={convex}>
+            <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
                     <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
                         <ScreenSizeContext.Provider value={{ ScreenSize, setScreenSize }}>
                             <DragDropLayoutContext.Provider
@@ -93,7 +91,6 @@ function Provider({ children }) {
                     </UserDetailContext.Provider>
                 </GoogleOAuthProvider>
             </ConvexProvider>
-        </ThemeProvider>
     );
 }
 

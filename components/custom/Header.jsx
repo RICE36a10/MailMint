@@ -6,7 +6,6 @@ import { SignInButton } from "@/components/custom/SignInButton";
 // import { useUserDetail } from "@/provider";
 import { useUserDetail } from "@/app/provider";
 import Link from "next/link";
-import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export const Header = () => {
     const { userDetail } = useUserDetail();
@@ -32,7 +31,6 @@ export const Header = () => {
                 {
                     userDetail?.email ? (
                     <div className="flex gap-3 items-center">
-                        <ThemeToggle />
                         <Link href={"/dashboard"}>
                             <Button>Dashboard</Button>
                         </Link>
@@ -46,7 +44,6 @@ export const Header = () => {
                     </div>
                 ) : (
                         <div className="flex gap-3 items-center">
-                            <ThemeToggle />
                             <SignInButton Messege={"Get Started"} />
                         </div>
                 )}

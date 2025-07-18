@@ -30,7 +30,6 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
         setDragOver(false);
         if (DragElementLayout?.dragLayout) {
             setEmailTemplate((prev) => [...prev, DragElementLayout?.dragLayout]);
-            toast("New Set of Column Added");
         }
     };
 

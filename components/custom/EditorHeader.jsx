@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CodeSquare, Code, Monitor, Smartphone } from "lucide-react";
 import {useEmailTemplate, useScreenSize} from "@/app/provider";
-import ThemeToggle from "@/components/ui/ThemeToggle";
 import Link from "next/link";
 import {useMutation} from "convex/react";
 import {UpdateTemplateDesign} from "@/convex/emailTemplate";
@@ -25,7 +24,6 @@ export const EditorHeader = ({ viewHtmlCode }) => {
             tid: templateId,
             design: emailTemplate,
         });
-        toast("Email Template Saved Successfully!");
     };
 
 
@@ -71,7 +69,6 @@ export const EditorHeader = ({ viewHtmlCode }) => {
             </div>
 
             <div className={"flex gap-3"}>
-                <ThemeToggle />
                 <Button
                     variant={"ghost"}
                     className={"hover:text-primary    hover:bg-purple-100  "}
