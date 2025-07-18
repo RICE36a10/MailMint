@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
     useDragDropLayout,
     useEmailTemplate,
@@ -15,21 +15,22 @@ import { DividerComponent } from "@/components/Element/DividerComponent";
 import { ArrowDown, ArrowUp, Trash } from "lucide-react";
 
 
-export function ColumnLayout({ layout }) {
+// React.memo + useCallback reduce unnecessary re-renders of this heavy layout
+export const ColumnLayout = React.memo(function ColumnLayout({ layout }) {
     const [dragOver, setDragOver] = useState();
     const { emailTemplate, setEmailTemplate } = useEmailTemplate();
     const { DragElementLayout, setDragElementLayout } = useDragDropLayout();
     const { SelectedElement, setSelectedElement } = useSelectedElement();
 
-    const ondragoverhandle = (event, index) => {
+    const ondragoverhandle = useCallback((event, index) => {
         event.preventDefault();
         setDragOver({
             index: index,
             columnId: layout?.id,
         });
-    };
+    }, [layout?.id]);
 
-    const ondrophandle = (event, dropIndex) => {
+    const ondrophandle = useCallback((event, dropIndex) => {
         event.preventDefault();
         setEmailTemplate((prevItem) =>
             prevItem?.map((col) =>
@@ -42,7 +43,7 @@ export function ColumnLayout({ layout }) {
             ),
         );
         setDragOver(null);
-    };
+    }, [layout?.id, DragElementLayout?.dragElement, setEmailTemplate]);
 
     const DeleteLayout = (layoutId) => {
         const updateEmailTemplate = emailTemplate?.filter(
@@ -174,4 +175,4 @@ export function ColumnLayout({ layout }) {
             </div>
         </div>
     );
-}
+});

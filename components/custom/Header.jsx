@@ -12,7 +12,6 @@ export const Header = () => {
     const { userDetail } = useUserDetail();
     const { theme, setTheme } = useTheme();
 
-    console.log("User Email:", userDetail?.email); // Debugging user email
 
     return (
         <div className="flex justify-between items-center p-4 shadow-sm px-10">

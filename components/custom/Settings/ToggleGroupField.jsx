@@ -7,7 +7,6 @@ export function ToggleGroupField({
                                      onHandleStyleChange,
                                      options,
                                  }) {
-    console.log(options);
     return (
         <div>
             <label htmlFor="">{label}</label>

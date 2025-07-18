@@ -25,7 +25,6 @@ function EmailTemplateList() {
 
     const GetTemplateList = async () => {
         if (!userDetail?.email) {
-            console.log("Error: User email is missing in emailtemplatelist", userDetail);
             return;
         }
         setLoading(true); // ✅ Start loading
@@ -33,7 +32,6 @@ function EmailTemplateList() {
             const result = await Convex.query(api.emailTemplate.GetAllUserTemplate, {
                 email: userDetail.email,
             });
-            console.log("Templates fetched:", result);
             setEmailList(result);
         } catch (error) {
             console.error("Error fetching templates:", error);
@@ -50,7 +48,6 @@ function EmailTemplateList() {
                 { tid: templateId }
             ); // ✅ Call delete API
             setEmailList((prevList) => prevList.filter((item) => item.tid !== templateId)); // ✅ Remove from UI
-            console.log("Template deleted:", templateId);
         } catch (error) {
             console.error("Error deleting template:", error);
         }
