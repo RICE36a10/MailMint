@@ -119,6 +119,16 @@ export default function Settings() {
         setSelectedElement(updatedElement);
     };
 
+    const onHandleSocialIconLinkChange = (index, value) => {
+        const updated = { ...SelectedElement };
+        const icons = [...(updated.layout[SelectedElement.index].socialIcons || [])];
+        if (icons[index]) {
+            icons[index] = { ...icons[index], url: value };
+        }
+        updated.layout[SelectedElement.index].socialIcons = icons;
+        setSelectedElement(updated);
+    };
+
     const TextAlignOptions = [
         {
             value: "left",
@@ -203,6 +213,17 @@ export default function Settings() {
                     }
                 />
             )}
+            {element?.style && (
+                <InputField
+                    label={"Background Image URL"}
+                    value={element?.style?.backgroundImageUrl || ""}
+                    onHandleInputChange={(value) =>
+                        onHandleStyleChange("backgroundImageUrl", value)
+                    }
+                    outerStyle={element?.outerStyle}
+                    style={element?.style}
+                />
+            )}
             {element?.url && (
                 <InputField
                     label={"url"}
@@ -211,6 +232,22 @@ export default function Settings() {
                     outerStyle={element?.outerStyle}
                     style={element?.style}
                 />
+            )}
+            {element?.socialIcons && (
+                <div className="flex flex-col gap-2">
+                    {element.socialIcons.map((icon, idx) => (
+                        <InputField
+                            key={idx}
+                            label={`Link ${idx + 1}`}
+                            value={icon.url}
+                            onHandleInputChange={(value) =>
+                                onHandleSocialIconLinkChange(idx, value)
+                            }
+                            outerStyle={element?.outerStyle}
+                            style={element?.style}
+                        />
+                    ))}
+                </div>
             )}
             {
                 <div className={'flex gap-6 bg-gray-100 justify-around'}>
@@ -293,6 +330,15 @@ export default function Settings() {
                     MIN={5}
                     MAX={600}
                     STEP={1}
+                    outerStyle={element?.outerStyle}
+                    style={element?.style}
+                />
+            )}
+            {element?.style?.height && (
+                <InputStyleField
+                    label={"Height"}
+                    value={element?.style?.height}
+                    onHandleStyleChange={(value) => onHandleStyleChange("height", value)}
                     outerStyle={element?.outerStyle}
                     style={element?.style}
                 />
