@@ -5,13 +5,12 @@ import {
     useEmailTemplate, useHtmlCode,
     useScreenSize,
 } from "@/app/provider";
-import layout from "@/Data/Layout";
 import { ColumnLayout } from "@/components/LayoutElements/ColumnLayout";
-import Layout from "@/Data/Layout";
 import { ViewHtmlDialog } from "@/components/custom/ViewHtmlDialog";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faBan, faFaceSadTear} from "@fortawesome/free-solid-svg-icons";
+import {faBan} from "@fortawesome/free-solid-svg-icons";
+import { toast } from "sonner";
 export function Canvas({ viewHtmlCode, closeDialog }) {
     const htmlref = useRef();
     const { ScreenSize, setScreenSize } = useScreenSize();
@@ -61,9 +60,7 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
     //     console.log("type of email template in canvas",typeof(emailTemplate), emailTemplate);
     // }, [emailTemplate]);
 
-    const [TempTemplate, setTempTemplate] = useState([]);
 
-    const p = [{4:4}, {4:4}, {4:4}, {4:4}];
 
 
     return (
@@ -79,7 +76,7 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
                     ref={htmlref}
                 >
                     {
-                        emailTemplate.length >= 0 ? (
+                        emailTemplate.length > 0 ? (
                             <>
                                 {emailTemplate.map((layout, index) => (
                                     <div key={index}>{getLayoutComponent(layout) || "Empty Component"}</div>
