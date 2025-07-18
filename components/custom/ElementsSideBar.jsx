@@ -10,7 +10,6 @@ export function ElementsSideBar() {
     const { DragElementLayout, setDragElementLayout } = useDragDropLayout();
 
     const OnDragLayoutStart = (layout) => {
-        console.log(layout);
         setDragElementLayout((prev) => ({
             ...prev, // Ensure previous state is retained
             dragLayout: {

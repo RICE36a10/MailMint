@@ -11,7 +11,6 @@ export function SignInButton({Messege}) {
 
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
-            console.log(tokenResponse);
             try {
                 const userDetail = await axios.get(
                     "https://www.googleapis.com/oauth2/v3/userinfo",
@@ -19,7 +18,6 @@ export function SignInButton({Messege}) {
                         headers: { Authorization: `Bearer ${tokenResponse?.access_token}` },
                     },
                 );
-                console.log(userDetail.data);
                 const user = userDetail.data;
 
                 if (typeof window !== "undefined") {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
     useDragDropLayout,
     useEmailTemplate, useHtmlCode,
@@ -11,7 +11,8 @@ import { ViewHtmlDialog } from "@/components/custom/ViewHtmlDialog";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBan} from "@fortawesome/free-solid-svg-icons";
 import { toast } from "sonner";
-export function Canvas({ viewHtmlCode, closeDialog }) {
+// Memoized to avoid re-renders when props don't change
+export const Canvas = React.memo(function Canvas({ viewHtmlCode, closeDialog }) {
     const htmlref = useRef();
     const { ScreenSize, setScreenSize } = useScreenSize();
     const { DragElementLayout, setDragElementLayout } = useDragDropLayout();
@@ -19,18 +20,18 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
     const [dragOver, setDragOver] = useState(false);
     const {htmlCode, setHtmlCode} = useHtmlCode();
 
-    const onDragOver = (e) => {
+    // useCallback keeps handlers stable to prevent re-render churn
+    const onDragOver = useCallback((e) => {
         e.preventDefault();
         setDragOver(true);
-        console.log("Ondrag over");
-    };
-    const onDropHandler = (event) => {
+    }, []);
+    const onDropHandler = useCallback((event) => {
         event.preventDefault();
         setDragOver(false);
         if (DragElementLayout?.dragLayout) {
             setEmailTemplate((prev) => [...prev, DragElementLayout?.dragLayout]);
         }
-    };
+    }, [DragElementLayout?.dragLayout, setEmailTemplate]);
 
     const getLayoutComponent = (layout) => {
         if (layout?.type == "column") {
@@ -47,9 +48,7 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
     const GetHtmlCode = () => {
         if (htmlref.current) {
             const htmlContent = htmlref.current.innerHTML;
-            console.log(htmlContent);
             setHtmlCode(htmlContent);
-            console.log(htmlCode);
         }
     };
 
@@ -106,4 +105,4 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
             </div>
         </>
     );
-}
+});

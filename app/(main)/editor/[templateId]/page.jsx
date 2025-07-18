@@ -1,9 +1,11 @@
 "use client";
-import React, {useEffect, useState} from "react";
-import { EditorHeader } from "@/components/custom/EditorHeader";
-import { Canvas } from "@/components/custom/Canvas";
-import ElementsSideBar from "@/components/custom/ElementsSideBar";
-import Settings from "@/components/custom/Settings";
+import React, {useEffect, useState, useCallback} from "react";
+import dynamic from "next/dynamic";
+// Dynamic imports split heavy editor code for faster page loads
+const EditorHeader = dynamic(() => import("@/components/custom/EditorHeader"));
+const Canvas = dynamic(() => import("@/components/custom/Canvas"));
+const ElementsSideBar = dynamic(() => import("@/components/custom/ElementsSideBar"));
+const Settings = dynamic(() => import("@/components/custom/Settings"));
 import {useEmailTemplate, useScreenSize, useUserDetail} from "@/app/provider";
 import { toast } from "sonner";
 import {useParams} from "next/navigation";
@@ -23,35 +25,29 @@ function editor() {
 
     useEffect(() => {
         if (userDetail) {
-            console.log("Fetching template data...");
-            console.log(templateId);
             GetTemplateData();
-        } else {
-            console.log("userDetail is undefined or null");
         }
     }, [userDetail]);
 
 
-    const GetTemplateData = async () => {
+    // Wrapped in useCallback so dependency array can stay stable
+    const GetTemplateData = useCallback(async () => {
         try {
             if(!userDetail.email) {
                 return;
             }
             setLoading(true);
-            console.log(userDetail, 'hehehehehe');
             const result = await convex.query(api.emailTemplate.GetTemplateDesign, {
                 tid: templateId,
                 email: userDetail?.email,
             });
-            console.log(result, "GetTemplateData");
             setEmailTemplate(result?.design);
             toast.success("Template loaded");
-            console.log(emailTemplate);
             setLoading(false);
         } catch (error) {
             console.error("Error fetching template data in /editor/page.jsx :", error);
         }
-    };
+    }, [convex, templateId, userDetail?.email, setEmailTemplate]);
 
     // useEffect(() => {
     //     console.log(typeof(emailTemplate), emailTemplate);
