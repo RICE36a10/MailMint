@@ -11,6 +11,7 @@ import {api} from "@/convex/_generated/api";
 import {useParams} from "next/navigation";
 import {EmailTemplateContext} from "@/context/EmailTemplateContext";
 import SendEmail from "@/components/custom/SendEmail";
+import { toast } from "sonner";
 
 export const EditorHeader = ({ viewHtmlCode }) => {
     const { ScreenSize, setScreenSize } = useScreenSize();
