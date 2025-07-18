@@ -5,6 +5,7 @@ import { Canvas } from "@/components/custom/Canvas";
 import ElementsSideBar from "@/components/custom/ElementsSideBar";
 import Settings from "@/components/custom/Settings";
 import {useEmailTemplate, useScreenSize, useUserDetail} from "@/app/provider";
+import { toast } from "sonner";
 import {useParams} from "next/navigation";
 import {useConvex, useQuery} from "convex/react";
 import {GetTemplateDesign } from "@/convex/emailTemplate";
@@ -44,6 +45,7 @@ function editor() {
             });
             console.log(result, "GetTemplateData");
             setEmailTemplate(result?.design);
+            toast.success("Template loaded");
             console.log(emailTemplate);
             setLoading(false);
         } catch (error) {

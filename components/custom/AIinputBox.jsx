@@ -9,6 +9,7 @@ import {api} from "@/convex/_generated/api";
 import {v4 as uuidv4} from "uuid";
 import {useEmailTemplate, useUserDetail} from "@/app/provider";
 import {LoaderCircle} from "lucide-react";
+import { toast } from "sonner";
 import {useRouter} from "next/navigation";
 import {SaveTemplate} from "@/convex/emailTemplate";
 
@@ -59,6 +60,7 @@ export function AIinputBox() {
             // setEmailTemplate(JSON.parse(result.data?.response));
             // await router.push('/editor/'+tid);
             console.log("Saved Template ID:", respo);
+            toast.success("Template generated successfully!");
             router.push('/editor/' + tid);
 
 
@@ -69,6 +71,7 @@ export function AIinputBox() {
                 || "Failed to generate or save template";
 
             console.error("Error Details:", errorMessage);
+            toast.error(errorMessage);
             setGeneratedTemplate({ error: errorMessage });
         } finally {
             setLoading(false);
