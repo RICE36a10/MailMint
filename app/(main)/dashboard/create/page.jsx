@@ -1,7 +1,7 @@
 "use client";
 import React, {useState} from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {Sparkles} from "lucide-react";
+import {Sparkles, LoaderCircle} from "lucide-react";
 import {AIinputBox} from "@/components/custom/AIinputBox";
 import {Button} from "@/components/ui/button";
 import {useMutation} from "convex/react";
@@ -12,6 +12,7 @@ import {useUserDetail, useEmailTemplate} from "@/app/provider";
 
 export default function Create() {
     const [scratchClicked, setScratchClicked] = useState(false);
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
     const saveTemplate = useMutation(api.emailTemplate.SaveTemplate);
     const {userDetail} = useUserDetail();
@@ -20,6 +21,7 @@ export default function Create() {
     const handleStartNow = async () => {
         if(!userDetail?.email) return;
         const tid = uuidv4();
+        setLoading(true);
         try {
             await saveTemplate({
                 tid: tid,
@@ -31,6 +33,7 @@ export default function Create() {
             router.push('/editor/' + tid);
         } catch (e) {
             console.error('Error creating template from scratch', e);
+            setLoading(false);
         }
     };
 
@@ -61,7 +64,15 @@ export default function Create() {
                     <TabsContent value="Scratch">
                         <div className={' ml-16 mt-10'}>
                             {scratchClicked ? (
-                                <Button onClick={handleStartNow}>Start Now</Button>
+                                <Button onClick={handleStartNow} disabled={loading}>
+                                    {loading ? (
+                                        <span className={'scale-125 flex'}>
+                                            <LoaderCircle className={'animate-spin'} />
+                                        </span>
+                                    ) : (
+                                        'Start Now'
+                                    )}
+                                </Button>
                             ) : (
                                 "Coming soon"
                             )}
