@@ -152,7 +152,7 @@ export default function Settings() {
     return (
         <div className={"p-5 flex flex-col gap-5"}>
             <h2 className={"font-bold text-xl"}>Settings</h2>
-            {element?.imageUrl && (
+            {element?.imageUrl !== undefined && (
                 <ImagePreview
                     label={"Image Preview"}
                     value={element?.imageUrl}
