@@ -30,22 +30,19 @@ export function ColumnLayout({ layout }) {
         });
     };
 
-    const ondrophandle = () => {
-        if (!dragOver) return;
-        const index = dragOver?.index;
+    const ondrophandle = (event, dropIndex) => {
+        event.preventDefault();
         setEmailTemplate((prevItem) =>
             prevItem?.map((col) =>
                 col.id === layout?.id
                     ? {
-                        ...col,
-                        [index]: DragElementLayout?.dragElement,
-                    }
+                          ...col,
+                          [dropIndex]: DragElementLayout?.dragElement,
+                      }
                     : col,
             ),
         );
         setDragOver(null);
-        console.log(emailTemplate);
-        console.log("tapka dia");
     };
 
     const DeleteLayout = (layoutId) => {
@@ -136,7 +133,7 @@ export function ColumnLayout({ layout }) {
                              ${SelectedElement?.layout?.id === layout?.id && SelectedElement?.index == index && "border-blue-500 border "}
                              `}
                             onDragOver={(event) => ondragoverhandle(event, index)}
-                            onDrop={(event) => ondrophandle()}
+                            onDrop={(event) => ondrophandle(event, index)}
                             onClick={() =>
                                 setSelectedElement({
                                     layout: layout,

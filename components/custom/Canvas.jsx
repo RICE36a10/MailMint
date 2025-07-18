@@ -25,9 +25,9 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
         setDragOver(true);
         console.log("Ondrag over");
     };
-    const onDropHandler = () => {
+    const onDropHandler = (event) => {
+        event.preventDefault();
         setDragOver(false);
-        console.log(DragElementLayout?.dragLayout, "helllo ");
         if (DragElementLayout?.dragLayout) {
             setEmailTemplate((prev) => [...prev, DragElementLayout?.dragLayout]);
             toast("New Set of Column Added");
@@ -75,7 +75,7 @@ export function Canvas({ viewHtmlCode, closeDialog }) {
                     ${ScreenSize === "desktop" ? "max-w-2xl" : "max-w-lg"} 
                     ${dragOver ? "bg-purple-100 p-4" : ""}`}
                     onDragOver={onDragOver}
-                    onDrop={() => onDropHandler()}
+                    onDrop={(event) => onDropHandler(event)}
                     ref={htmlref}
                 >
                     {
