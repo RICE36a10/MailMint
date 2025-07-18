@@ -8,6 +8,7 @@ import { EmailTemplateContext } from "@/context/EmailTemplateContext";
 import { SelectedElementContext } from "@/context/SelectedElement";
 import {UserDetailContext} from "@/context/UserDetailContext"
 import {HtmlCodeContext} from "@/context/HtmlCodeContext";
+import {ThemeContext} from "@/context/ThemeContext";
 function Provider({ children }) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
     const [userDetail, setUserDetail] = useState(null);
@@ -16,6 +17,7 @@ function Provider({ children }) {
     const [SelectedElement, setSelectedElement] = useState();
     const [emailTemplate, setEmailTemplate] = useState([]);
     const [htmlCode, setHtmlCode] = useState("");
+    const [theme, setTheme] = useState("light");
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -57,6 +59,12 @@ function Provider({ children }) {
             } else {
                 setEmailTemplate([]); // Fallback to an empty array
             }
+
+            // theme
+            const storedTheme = localStorage.getItem("theme");
+            if (storedTheme === "dark" || storedTheme === "light") {
+                setTheme(storedTheme);
+            }
         }
     }, []);
 
@@ -66,10 +74,22 @@ function Provider({ children }) {
         }
     }, [emailTemplate]);
 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            if (theme === "dark") {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+            localStorage.setItem("theme", theme);
+        }
+    }, [theme]);
+
     return (
         <ConvexProvider client={convex}>
             <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
                     <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
+                        <ThemeContext.Provider value={{ theme, setTheme }}>
                         <ScreenSizeContext.Provider value={{ ScreenSize, setScreenSize }}>
                             <DragDropLayoutContext.Provider
                                 value={{ DragElementLayout, setDragElementLayout }}
@@ -88,6 +108,7 @@ function Provider({ children }) {
                                 </EmailTemplateContext.Provider>
                             </DragDropLayoutContext.Provider>
                         </ScreenSizeContext.Provider>
+                        </ThemeContext.Provider>
                     </UserDetailContext.Provider>
                 </GoogleOAuthProvider>
             </ConvexProvider>
@@ -113,4 +134,7 @@ export const useSelectedElement = () => {
 };
 export const useHtmlCode = () => {
     return useContext(HtmlCodeContext);
+};
+export const useTheme = () => {
+    return useContext(ThemeContext);
 };

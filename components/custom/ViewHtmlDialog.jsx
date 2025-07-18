@@ -8,6 +8,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Copy, Check } from "lucide-react";
+import { toast } from "sonner";
 export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog}) {
     const [isCopied, setIsCopied] = useState(false);
 
@@ -16,6 +17,7 @@ export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog}) {
             .writeText(htmlCode)
             .then(() => {
                 setIsCopied(true);
+                toast.success("HTML copied");
                 setTimeout(() => setIsCopied(false), 1200); // Reset after 2 seconds
             })
             .catch((err) => {

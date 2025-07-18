@@ -4,11 +4,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { SignInButton } from "@/components/custom/SignInButton";
 // import { useUserDetail } from "@/provider";
-import { useUserDetail } from "@/app/provider";
+import { useUserDetail, useTheme } from "@/app/provider";
+import { Sun, Moon } from "lucide-react";
 import Link from "next/link";
 
 export const Header = () => {
     const { userDetail } = useUserDetail();
+    const { theme, setTheme } = useTheme();
 
     console.log("User Email:", userDetail?.email); // Debugging user email
 
@@ -27,7 +29,13 @@ export const Header = () => {
                     </div>
                 </div>
             </Link>
-            <div>
+            <div className="flex items-center gap-3">
+                <Button
+                    variant="ghost"
+                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                >
+                    {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                </Button>
                 {
                     userDetail?.email ? (
                     <div className="flex gap-3 items-center">

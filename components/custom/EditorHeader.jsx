@@ -2,8 +2,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { CodeSquare, Code, Monitor, Smartphone } from "lucide-react";
-import {useEmailTemplate, useScreenSize} from "@/app/provider";
+import { CodeSquare, Code, Monitor, Smartphone, Sun, Moon } from "lucide-react";
+import {useEmailTemplate, useScreenSize, useTheme} from "@/app/provider";
 import Link from "next/link";
 import {useMutation} from "convex/react";
 import {UpdateTemplateDesign} from "@/convex/emailTemplate";
@@ -17,6 +17,7 @@ export const EditorHeader = ({ viewHtmlCode }) => {
     const { ScreenSize, setScreenSize } = useScreenSize();
     const {templateId} = useParams();
     const {emailTemplate, setEmailTemplate} = useEmailTemplate();
+    const { theme, setTheme } = useTheme();
     const UpdateTemplate = useMutation(api.emailTemplate.UpdateTemplateDesign);
 
 
@@ -25,6 +26,7 @@ export const EditorHeader = ({ viewHtmlCode }) => {
             tid: templateId,
             design: emailTemplate,
         });
+        toast.success("Template saved");
     };
 
 
@@ -70,6 +72,16 @@ export const EditorHeader = ({ viewHtmlCode }) => {
             </div>
 
             <div className={"flex gap-3"}>
+                <Button
+                    variant="ghost"
+                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                >
+                    {theme === "dark" ? (
+                        <Sun className="h-5 w-5" />
+                    ) : (
+                        <Moon className="h-5 w-5" />
+                    )}
+                </Button>
                 <Button
                     variant={"ghost"}
                     className={"hover:text-primary    hover:bg-purple-100  "}

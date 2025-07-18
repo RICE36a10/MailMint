@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {useHtmlCode} from "@/app/provider";
+import { toast } from "sonner";
 
 export default function SendEmail() {
     const [emails, setEmails] = useState("");
@@ -31,9 +32,15 @@ export default function SendEmail() {
             });
 
             const data = await res.json();
+            if (data.success) {
+                toast.success("Email sent successfully!");
+            } else {
+                toast.error(`Error: ${data.error}`);
+            }
             setResponse(data.success ? "Email sent successfully!" : `Error: ${data.error}`);
         } catch (error) {
             setResponse("Failed to send email");
+            toast.error("Failed to send email");
         }
 
         setLoading(false);
