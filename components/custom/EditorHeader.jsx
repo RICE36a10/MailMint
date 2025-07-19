@@ -102,3 +102,5 @@ export const EditorHeader = ({ viewHtmlCode }) => {
         </div>
     );
 };
+
+export default EditorHeader;

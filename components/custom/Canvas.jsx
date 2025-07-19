@@ -105,3 +105,5 @@ export const Canvas = React.memo(function Canvas({ viewHtmlCode, closeDialog }) 
         </>
     );
 });
+
+export default Canvas;
