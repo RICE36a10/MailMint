@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Dialog,
     DialogContent,
@@ -8,13 +8,30 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Copy, Check } from "lucide-react";
+import prettier from "prettier/standalone";
+import parserHtml from "prettier/plugins/html";
 import { notify } from "@/lib/notify";
 export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog}) {
     const [isCopied, setIsCopied] = useState(false);
+    const [formattedCode, setFormattedCode] = useState(htmlCode || "");
+
+    useEffect(() => {
+        if (!htmlCode) return;
+        try {
+            const pretty = prettier.format(htmlCode, {
+                parser: "html",
+                plugins: [parserHtml],
+            });
+            setFormattedCode(pretty);
+        } catch (err) {
+            console.error("HTML formatting failed", err);
+            setFormattedCode(htmlCode);
+        }
+    }, [htmlCode]);
 
     const copyCode = () => {
         navigator.clipboard
-            .writeText(htmlCode)
+            .writeText(formattedCode)
             .then(() => {
                 setIsCopied(true);
                 notify("HTML copied");
@@ -63,7 +80,7 @@ export function ViewHtmlDialog({ openDialog, htmlCode, closeDialog}) {
                         <DialogDescription asChild>
                             <div className="max-h-[400px] overflow-auto bg-[#1E1E1E] rounded-lg p-5">
               <pre className="whitespace-pre-wrap break-all">
-                <code className="text-[#D4D4D4] font-mono">{htmlCode}</code>
+                <code className="text-[#D4D4D4] font-mono">{formattedCode}</code>
               </pre>
                             </div>
                         </DialogDescription>
