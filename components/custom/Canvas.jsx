@@ -10,7 +10,6 @@ import { ViewHtmlDialog } from "@/components/custom/ViewHtmlDialog";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBan} from "@fortawesome/free-solid-svg-icons";
-import { toast } from "sonner";
 // Memoized to avoid re-renders when props don't change
 export const Canvas = React.memo(function Canvas({ viewHtmlCode, closeDialog }) {
     const htmlref = useRef();

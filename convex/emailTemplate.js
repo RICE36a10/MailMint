@@ -11,13 +11,14 @@ export const SaveTemplate = mutation({
     handler: async (ctx, args) => {
         try {
             return await ctx.db.insert("emailTemplates", {
-                tid: args?.tid,
-                design: args?.design,
-                email: args?.email,
-                description: args?.description,
+                tid: args.tid,
+                design: args.design,
+                email: args.email,
+                description: args.description,
             });
         } catch (e) {
-            console.log(e);
+            console.error(e);
+            return null;
         }
     },
 });
@@ -32,14 +33,18 @@ export const GetTemplateDesign = query({
             const result = await ctx.db
                 .query("emailTemplates")
                 .filter((q) =>
-                    q.and(q.eq(q.field("tid"),args?.tid),
-                    q.eq(q.field("email"), args?.email))
+                    q.and(
+                        q.eq(q.field("tid"), args.tid),
+                        q.eq(q.field("email"), args.email)
+                    )
                 )
                 .collect();
-            return result[0] || {};
+            if (result.length === 0) {
+                return {};
+            }
+            return result[0];
         } catch (e) {
-            console.log("etem");
-            console.log(e);
+            console.error("GetTemplateDesign error", e);
             return {};
         }
     },
@@ -51,17 +56,19 @@ export const UpdateTemplateDesign  = mutation({
         design:v.any(),
     },
     handler: async (ctx, args) => {
-        // get doc id
-        const result = await ctx.db.query('emailTemplates')
-            .filter(q=>q.eq(q.field("tid"),args?.tid)).collect();
+        const result = await ctx.db
+            .query("emailTemplates")
+            .filter(q => q.eq(q.field("tid"), args.tid))
+            .collect();
 
-        console.log("i am in UpdateTemplateDesign this is full result", result);
+        if (!result.length) {
+            throw new Error("Template not found");
+        }
+
         const docID = result[0]._id;
-        console.log(docID);
-        // update that docId
-        await ctx.db.patch(docID,{
-            design: args?.design,
-        })
+        await ctx.db.patch(docID, {
+            design: args.design,
+        });
     }
 })
 
@@ -71,20 +78,24 @@ export const GetAllUserTemplate = query({
         email: v.string(),
     },
     handler: async (ctx, args) => {
-        return await ctx.db
-            .query("emailTemplates") // ✅ Ensure correct collection name
-            .filter(q => q.eq(q.field("email"), args.email))
-            .collect();
+        try {
+            return await ctx.db
+                .query("emailTemplates")
+                .filter(q => q.eq(q.field("email"), args.email))
+                .collect();
+        } catch (e) {
+            console.error("GetAllUserTemplate error", e);
+            return [];
+        }
     }
 });
 
 
 export const DeleteTemplate = mutation({
-    args: { tid: v.string() }, // ✅ Accept template ID
-    handler: async ({ db }, { tid }) => {
+    args: { tid: v.string() },
+    handler: async (ctx, { tid }) => {
         try {
-            // Look up the document ID using the provided template id
-            const result = await db
+            const result = await ctx.db
                 .query("emailTemplates")
                 .filter(q => q.eq(q.field("tid"), tid))
                 .collect();
@@ -95,7 +106,7 @@ export const DeleteTemplate = mutation({
 
             const docId = result[0]._id;
 
-            await db.delete(docId); // Delete the template from DB
+            await ctx.db.delete(docId);
             return { success: true, message: "Template deleted successfully" };
         } catch (error) {
             console.error("Error deleting template:", error);
