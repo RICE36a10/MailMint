@@ -7,7 +7,7 @@ const Canvas = dynamic(() => import("@/components/custom/Canvas"));
 const ElementsSideBar = dynamic(() => import("@/components/custom/ElementsSideBar"));
 const Settings = dynamic(() => import("@/components/custom/Settings"));
 import {useEmailTemplate, useScreenSize, useUserDetail} from "@/app/provider";
-import { toast } from "sonner";
+import { notify } from "@/lib/notify";
 import {useParams} from "next/navigation";
 import {useConvex, useQuery} from "convex/react";
 import {GetTemplateDesign } from "@/convex/emailTemplate";
@@ -42,7 +42,7 @@ function editor() {
                 email: userDetail?.email,
             });
             setEmailTemplate(result?.design);
-            toast.success("Template loaded");
+            notify("Template loaded");
             setLoading(false);
         } catch (error) {
             console.error("Error fetching template data in /editor/page.jsx :", error);

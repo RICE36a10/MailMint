@@ -11,7 +11,7 @@ import {api} from "@/convex/_generated/api";
 import {useParams} from "next/navigation";
 import {EmailTemplateContext} from "@/context/EmailTemplateContext";
 import SendEmail from "@/components/custom/SendEmail";
-import { toast } from "sonner";
+import { notify } from "@/lib/notify";
 
 export const EditorHeader = ({ viewHtmlCode }) => {
     const { ScreenSize, setScreenSize } = useScreenSize();
@@ -26,7 +26,7 @@ export const EditorHeader = ({ viewHtmlCode }) => {
             tid: templateId,
             design: emailTemplate,
         });
-        toast.success("Template saved");
+        notify("Template saved");
     };
 
 
