@@ -41,7 +41,7 @@ function editor() {
                 tid: templateId,
                 email: userDetail?.email,
             });
-            setEmailTemplate(result?.design);
+            setEmailTemplate(Array.isArray(result?.design) ? result.design : []);
             notify("Template loaded");
             setLoading(false);
         } catch (error) {
